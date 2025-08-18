@@ -1,3 +1,4 @@
+'use client'
 import Hero from '@/components/Home/Hero';
 import TrustBar from '@/components/Home/TrustBar';
 import ServicesSection from '@/components/Home/ServicesSection';

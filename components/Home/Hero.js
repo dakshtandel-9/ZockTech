@@ -5,7 +5,7 @@ export default function Hero() {
                 <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-base text-gray-300">
                     Premium • Fast • High‑Converting
                 </span>
-                <h1 className="mt-6 text-4xl md:text-6xl font-bold leading-tight">
+                <h1 className="mt-6 text-4xl md:text-6xl font-bold leading-tight text-white">
                     Premium Websites That Win Customers—Without Breaking the Budget
                 </h1>
                 <p className="mt-4 text-base text-gray-300 max-w-2xl mx-auto">

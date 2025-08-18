@@ -84,7 +84,7 @@ export default function PricingSection() {
           <span className="inline-flex items-center rounded-[5px] border border-white/10 bg-white/5 px-3 py-1 text-base text-gray-300">
             Pricing
           </span>
-          <h2 className="mt-4 text-3xl font-semibold">Simple, transparent packages</h2>
+          <h2 className="mt-4 text-3xl text-white font-semibold">Simple, transparent packages</h2>
           <p className="mt-3 text-base text-gray-400">
             Pick a plan that fits today—scale features as the business grows.
           </p>
@@ -111,10 +111,10 @@ export default function PricingSection() {
 
               {/* Title + price */}
               <header>
-                <h3 className="text-xl font-semibold">{t.name}</h3>
+                <h3 className="text-xl font-semibold text-white">{t.name}</h3>
                 <p className="mt-1 text-base text-gray-400">{t.tagline}</p>
                 <div className="mt-4 flex items-end gap-2">
-                  <span className="text-3xl font-bold">{t.price}</span>
+                  <span className="text-3xl text-white font-bold">{t.price}</span>
                   <span className="text-base text-gray-400">/{t.period}</span>
                 </div>
               </header>

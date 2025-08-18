@@ -28,7 +28,7 @@ export default function ServicesSection() {
   return (
     <section id="services" className="py-16">
       <div className="mx-auto max-w-7xl px-4">
-        <h2 className="text-3xl font-semibold">Services</h2>
+        <h2 className="text-3xl font-semibold text-white">Services</h2>
         <p className="mt-2 text-base text-gray-400">End‑to‑end delivery focused on ROI.</p>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -37,7 +37,7 @@ export default function ServicesSection() {
               <div className="flex h-12 w-12 items-center justify-center rounded-md border border-white/10 bg-white/5">
                 <Icon />
               </div>
-              <h3 className="mt-4 text-xl font-semibold">{title}</h3>
+              <h3 className="mt-4 text-xl font-semibold text-white">{title}</h3>
               <p className="mt-2 text-base text-gray-400">{desc}</p>
             </div>
           ))}

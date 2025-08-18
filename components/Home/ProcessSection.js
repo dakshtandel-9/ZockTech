@@ -41,7 +41,7 @@ export default function ProcessSection() {
                     <span className="inline-flex items-center rounded-[5px] border border-white/10 bg-white/5 px-3 py-1 text-base text-gray-300">
                         Our Process
                     </span>
-                    <h2 className="mt-4 text-3xl font-semibold">Simple, fast, and transparent</h2>
+                    <h2 className="mt-4 text-3xl text-white font-semibold">Simple, fast, and transparent</h2>
                     <p className="mt-3 text-base text-gray-400">
                         Four focused stages to move from idea to launch—no bloated timelines or surprise costs.
                     </p>
@@ -76,7 +76,7 @@ export default function ProcessSection() {
                             <div className="inline-flex h-8 w-8 items-center justify-center rounded-[5px] bg-[#FF7302] text-xs font-bold text-black">
                                 {s.n}
                             </div>
-                            <h3 className="mt-3 text-base font-semibold">{s.title}</h3>
+                            <h3 className="mt-3 text-white font-semibold">{s.title}</h3>
                             <p className="mt-2 text-base text-gray-300">{s.desc}</p>
                             <div className="mt-3 inline-flex items-center rounded-[5px] border border-white/10 bg-white/5 px-2 py-1 text-xs text-gray-300">
                                 Deliverable: {s.deliverable}
@@ -87,7 +87,7 @@ export default function ProcessSection() {
 
                 {/* Add-on strip */}
                 <div className="mt-8 rounded-lg border border-white/5 bg-[#111116] p-5">
-                    <h3 className="text-base font-semibold">What’s included</h3>
+                    <h3 className="text-base font-semibold text-white">What’s included</h3>
                     <div className="mt-3 grid gap-3 text-base text-gray-300 md:grid-cols-3">
                         <Item>Conversion‑first UX & accessible components</Item>
                         <Item>On‑page SEO, analytics, and basic schema</Item>

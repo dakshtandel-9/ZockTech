@@ -12,7 +12,7 @@ export default function AboutPreview() {
                         About Zocktech
                     </span>
 
-                    <h2 className="mt-4 text-3xl font-semibold">
+                    <h2 className="mt-4 text-3xl font-semibold text-white">
                         Premium websites that turn visitors into customers.
                     </h2>
 
@@ -27,7 +27,7 @@ export default function AboutPreview() {
                     </p>
 
                     {/* Stats */}
-                    <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                    <div className="text-white mt-6 grid gap-4 sm:grid-cols-3">
                         <Stat number="50+" label="Projects delivered" />
                         <Stat number="7–15d" label="Typical launch" />
                         <Stat number="90+" label="Perf score target" />
@@ -52,7 +52,7 @@ export default function AboutPreview() {
 
                 {/* Right: Value bullets + mini process */}
                 <div className="lg:col-span-6">
-                    <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="grid gap-4 sm:grid-cols-2 text-white">
                         <ValueItem
                             title="Conversion‑first UX"
                             desc="Clear hierarchy, persuasive copy, and CTAs that drive action."
@@ -72,7 +72,7 @@ export default function AboutPreview() {
                     </div>
 
                     <div className="mt-6 rounded-lg border border-white/5 bg-[#111116] p-5">
-                        <h3 className="text-base font-semibold">How we work</h3>
+                        <h3 className="text-base font-semibold text-white">How we work</h3>
                         <ol className="mt-3 grid gap-3 sm:grid-cols-4">
                             <Step n="1" title="Discover" />
                             <Step n="2" title="Design" />

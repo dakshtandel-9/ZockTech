@@ -22,7 +22,7 @@ export default function Header() {
 
     return (
         <header
-            className={`sticky top-0 z-50 transition-colors ${scrolled ? 'backdrop-blur bg-[#0B0B0F]/80 border-b border-white/5' : 'bg-transparent'
+            className={`bg-black-100 sticky top-0 z-50 transition-colors ${scrolled ? 'backdrop-blur bg-[#0B0B0F]/80 border-b border-white/10' : 'bg-transparent'
                 }`}
             role="banner"
         >

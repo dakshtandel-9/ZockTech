@@ -44,7 +44,7 @@ export default function FAQSection({ faqs = DEFAULT_FAQS }) {
                     <span className="inline-flex items-center rounded-[5px] border border-white/10 bg-white/5 px-3 py-1 text-base text-gray-300">
                         FAQs
                     </span>
-                    <h2 className="mt-4 text-3xl font-semibold">Everything you need to know</h2>
+                    <h2 className="mt-4 text-3xl font-semibold text-white">Everything you need to know</h2>
                     <p className="mt-3 text-base text-gray-400">Can’t find what’s needed? Send a quick message and we’ll help right away.</p>
                 </div>
 
@@ -89,7 +89,7 @@ export default function FAQSection({ faqs = DEFAULT_FAQS }) {
                         >
                             <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
                                 <div>
-                                    <h3 className="text-base font-semibold">{f.q}</h3>
+                                    <h3 className="text-base font-semibold text-white">{f.q}</h3>
                                     {f.cat && (
                                         <span className="mt-1 inline-flex rounded-[5px] border border-white/10 bg-white/5 px-2 py-0.5 text-xs text-gray-300">
                                             {f.cat}
@@ -122,7 +122,7 @@ export default function FAQSection({ faqs = DEFAULT_FAQS }) {
                 {/* Help CTA */}
                 <div className="mx-auto mt-10 flex max-w-3xl items-center justify-between rounded-lg border border-white/5 bg-[#111116] p-5">
                     <div>
-                        <h3 className="text-base font-semibold">Still need help?</h3>
+                        <h3 className="text-base font-semibold text-white">Still need help?</h3>
                         <p className="mt-1 text-base text-gray-400">Share project details and get a quick, tailored answer.</p>
                     </div>
                     <a

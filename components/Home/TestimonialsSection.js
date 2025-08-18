@@ -27,7 +27,7 @@ export default function TestimonialsSection() {
           <span className="inline-flex items-center rounded-[5px] border border-white/10 bg-white/5 px-3 py-1 text-base text-gray-300">
             Testimonials
           </span>
-          <h2 className="mt-4 text-3xl font-semibold">What clients say</h2>
+          <h2 className="mt-4 text-3xl text-white font-semibold">What clients say</h2>
           <p className="mt-3 text-base text-gray-400">Real feedback from brands and small businesses we’ve helped grow.</p>
         </div>
 

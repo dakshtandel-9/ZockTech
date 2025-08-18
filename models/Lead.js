@@ -1,18 +1,19 @@
+// models/Lead.js
 import mongoose, { Schema } from 'mongoose';
 
 const LeadSchema = new Schema(
     {
-        name: { type: String, trim: true, required: true },
-        email: { type: String, trim: true, required: true },
-        phone: { type: String, trim: true },
+        name: { type: String, required: true, trim: true },
+        email: { type: String, required: true, trim: true },
+        phone: { type: String, required: true, trim: true },
         website: { type: String, trim: true },
-        projectType: { type: String, trim: true }, // WordPress | Shopify | Custom | Maintenance
+        projectType: { type: String, trim: true },
         budget: { type: String, trim: true },
         timeline: { type: String, trim: true },
-        message: { type: String, trim: true },
-        source: { type: String, trim: true, default: 'website' }, // marketing attribution if needed
-        ip: { type: String, trim: true },
-        userAgent: { type: String, trim: true },
+        message: { type: String, required: true, trim: true },
+        source: { type: String, default: 'website' },
+        ip: String,
+        userAgent: String,
     },
     { timestamps: true }
 );

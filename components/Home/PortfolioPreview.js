@@ -39,7 +39,7 @@ export default function PortfolioPreview() {
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-3xl font-semibold">Portfolio</h2>
+            <h2 className="text-3xl font-semibold text-white">Portfolio</h2>
             <p className="mt-2 text-base text-gray-400">Selected work across fashion, retail, and D2C.</p>
           </div>
         </div>
@@ -51,7 +51,7 @@ export default function PortfolioPreview() {
               href={p.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-white/5 bg-[#111116]"
+              className="group text-white relative flex h-full flex-col overflow-hidden rounded-lg border border-white/5 bg-[#111116]"
             >
               {/* Media/logo area */}
               <div className="flex h-40 items-center justify-center bg-white/5">
