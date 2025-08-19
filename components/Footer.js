@@ -93,15 +93,15 @@ export default function Footer() {
 
             {/* Bottom bar */}
             <div className="border-t border-white/5">
-                <div className="mx-auto max-w-7xl px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-3">
+                <div className="mx-auto max-w-7xl px-4 py-4 flex flex-col md:flex-row items-center justify-center gap-3">
                     <p className="text-base text-gray-500">
-                        © {new Date().getFullYear()} Zocktech. All rights reserved.
+                      Made with ❤️ and ☕ by DakshTandel © {new Date().getFullYear()} Zocktech. All rights reserved.
                     </p>
-                    <div className="flex items-center gap-4 text-base text-gray-400">
+                    {/* <div className="flex items-center gap-4 text-base text-gray-400">
                         <Link className="hover:text-white" href="/privacy">Privacy Policy</Link>
                         <span className="text-gray-600">•</span>
                         <Link className="hover:text-white" href="/terms">Terms of Service</Link>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </footer>
