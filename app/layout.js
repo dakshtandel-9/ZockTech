@@ -14,10 +14,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "ZockTech - Web Development and Digital Marketing",
+  title: "ZockTech - Website Development Agency in Bangalore, Uttara Kannada & Honnavar",
   description:
-    "ZockTech is a web development and digital marketing agency. We build beautiful, fast, and secure websites. We also offer a wide range of digital marketing services to help you grow your business.",
-  keywords: ["web development", "digital marketing", "seo", "websites", "ZockTech"],
+    "ZockTech is a leading website development agency in Bangalore, Uttara Kannada, and Honnavar. We build fast, secure, and beautiful websites to help your business grow. Contact us for web development and digital marketing services.",
+  keywords: [
+    "ZockTech",
+    "Website development agency in Bangalore",
+    "Website development in Uttara Kannada",
+    "Website development in Honnavar",
+    "web development agency",
+    "digital marketing",
+    "SEO",
+  ],
+  creator: "ZockTech",
+  publisher: "ZockTech",
 };
 
 export default function RootLayout({ children }) {
