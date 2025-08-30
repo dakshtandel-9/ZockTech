@@ -49,7 +49,7 @@ export default function Chatbot() {
         }
     }, [messages]);
 
-    const webhookUrl = 'https://dakshtandel.app.n8n.cloud/webhook-test/81bfb9f5-e6dd-4d5f-80e9-97eab5363f08';
+    const webhookUrl = 'https://dakshtandel.app.n8n.cloud/webhook/81bfb9f5-e6dd-4d5f-80e9-97eab5363f08';
 
     // Function to format menu text into table HTML
     const formatMenuResponse = (text) => {
