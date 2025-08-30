@@ -51,6 +51,65 @@ export default function Chatbot() {
 
     const webhookUrl = 'https://dakshtandel.app.n8n.cloud/webhook-test/81bfb9f5-e6dd-4d5f-80e9-97eab5363f08';
 
+    // Function to format menu text into table HTML
+    const formatMenuResponse = (text) => {
+        // Check if the response contains menu items
+        if (text.toLowerCase().includes('menu') || text.includes('**') || text.includes('$')) {
+            // Parse the menu text and convert to table format
+            const lines = text.split('\n');
+            let tableHTML = '<div class="menu-table mb-2"><table class="w-full border-collapse border border-gray-300 text-xs bg-white rounded-lg overflow-hidden"><thead><tr class="bg-blue-100"><th class="border border-gray-300 px-2 py-1 text-left font-semibold">Category</th><th class="border border-gray-300 px-2 py-1 text-left font-semibold">Item</th><th class="border border-gray-300 px-2 py-1 text-left font-semibold">Description</th><th class="border border-gray-300 px-2 py-1 text-right font-semibold">Price</th></tr></thead><tbody>';
+            
+            let currentCategory = '';
+            let hasTableContent = false;
+            
+            lines.forEach(line => {
+                line = line.trim();
+                
+                // Category headers (e.g., **Salads:** or **Main Course:**)
+                if (line.startsWith('**') && line.endsWith(':**')) {
+                    currentCategory = line.replace(/\*\*/g, '').replace(':', '');
+                }
+                // Menu items with various formats
+                else if (line.startsWith('* **') && line.includes('$')) {
+                    // Format: * **Item Name** - Description - $Price
+                    const match = line.match(/\* \*\*(.+?)\*\* - (.+?) - \$(\d+(?:\.\d+)?)/);
+                    if (match) {
+                        const [, itemName, description, price] = match;
+                        tableHTML += `<tr class="hover:bg-gray-50"><td class="border border-gray-300 px-2 py-1 font-medium text-blue-700">${currentCategory}</td><td class="border border-gray-300 px-2 py-1 font-semibold">${itemName}</td><td class="border border-gray-300 px-2 py-1 text-gray-600">${description}</td><td class="border border-gray-300 px-2 py-1 text-right font-bold text-green-600">$${price}</td></tr>`;
+                        hasTableContent = true;
+                    }
+                }
+                // Format: **Item Name** - Description. (Price: $XX.XX)
+                else if (line.startsWith('**') && line.includes('(Price: $') && line.endsWith(')')) {
+                    const match = line.match(/\*\*(.+?)\*\* - (.+?)\. \(Price: \$(\d+(?:\.\d+)?)\)/);
+                    if (match) {
+                        const [, itemName, description, price] = match;
+                        tableHTML += `<tr class="hover:bg-gray-50"><td class="border border-gray-300 px-2 py-1 font-medium text-blue-700">${currentCategory}</td><td class="border border-gray-300 px-2 py-1 font-semibold">${itemName}</td><td class="border border-gray-300 px-2 py-1 text-gray-600">${description}</td><td class="border border-gray-300 px-2 py-1 text-right font-bold text-green-600">$${price}</td></tr>`;
+                        hasTableContent = true;
+                    }
+                }
+                // Alternative format: * Item Name - $Price
+                else if (line.startsWith('* ') && line.includes('$') && !line.includes('**')) {
+                    const match = line.match(/\* (.+?) - \$(\d+(?:\.\d+)?)/);
+                    if (match) {
+                        const [, itemName, price] = match;
+                        tableHTML += `<tr class="hover:bg-gray-50"><td class="border border-gray-300 px-2 py-1 font-medium text-blue-700">${currentCategory}</td><td class="border border-gray-300 px-2 py-1 font-semibold">${itemName}</td><td class="border border-gray-300 px-2 py-1 text-gray-600">-</td><td class="border border-gray-300 px-2 py-1 text-right font-bold text-green-600">$${price}</td></tr>`;
+                        hasTableContent = true;
+                    }
+                }
+            });
+            
+            tableHTML += '</tbody></table></div>';
+            
+            // Only return table HTML if we found actual menu content
+            if (hasTableContent) {
+                return tableHTML;
+            }
+        }
+        
+        return text;
+    };
+
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
@@ -86,14 +145,17 @@ export default function Chatbot() {
                 userId: 'web-user'
             });
             
-            console.log('Sending POST request to:', webhookUrl);
-            console.log('Request body:', {
+            // Create URL with query parameters for GET request
+            const requestBody = {
                 message: inputMessage,
                 timestamp: new Date().toISOString(),
                 userId: 'web-user'
-            });
+            };
             
-            // Try POST method first as n8n webhooks typically expect POST
+            console.log('Sending POST request to:', webhookUrl);
+            console.log('Request body:', requestBody);
+            
+            // Use POST method as the webhook expects POST requests
             const response = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: {
@@ -101,12 +163,8 @@ export default function Chatbot() {
                     'Accept': 'application/json, text/plain, */*',
                     'User-Agent': 'ZockTech-Chatbot/1.0'
                 },
-                mode: 'cors',
-                body: JSON.stringify({
-                    message: inputMessage,
-                    timestamp: new Date().toISOString(),
-                    userId: 'web-user'
-                })
+                body: JSON.stringify(requestBody),
+                mode: 'cors'
             });
 
             console.log('Response status:', response.status);
@@ -127,9 +185,13 @@ export default function Chatbot() {
                     console.log('Text response:', responseText);
                 }
                 
+                // Format menu responses into table format
+                const formattedText = formatMenuResponse(responseText || 'Hello! How can I help you today?');
+                
                 botResponse = {
                     id: Date.now() + 1,
-                    text: responseText || 'Hello! How can I help you today?',
+                    text: formattedText,
+                    isHTML: formattedText.includes('<table'),
                     sender: 'bot',
                     timestamp: new Date().toLocaleTimeString()
                 };
@@ -204,7 +266,7 @@ export default function Chatbot() {
 
             {/* Chat Window */}
             {isOpen && (
-                <div className="fixed bottom-24 right-6 z-40 w-96 h-[500px] bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col overflow-hidden">
+                <div className="fixed bottom-24 right-6 z-40 w-[500px] h-[500px] bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col overflow-hidden">
                     {/* Header */}
                     <div className="bg-blue-600 text-white p-4 flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -240,7 +302,17 @@ export default function Chatbot() {
                                             : 'bg-white text-gray-800 rounded-bl-none border border-gray-200'
                                     }`}
                                 >
-                                    <p className="text-sm">{message.text}</p>
+                                    {message.isHTML ? (
+                                        <div 
+                                            className="text-sm overflow-x-auto"
+                                            dangerouslySetInnerHTML={{ __html: message.text }}
+                                            style={{
+                                                maxWidth: '100%'
+                                            }}
+                                        />
+                                    ) : (
+                                        <p className="text-sm">{message.text}</p>
+                                    )}
                                     <p className={`text-xs mt-1 ${
                                         message.sender === 'user' ? 'text-blue-100' : 'text-gray-500'
                                     }`}>
