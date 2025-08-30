@@ -9,6 +9,7 @@ import ProcessSection from '@/components/Home/ProcessSection';
 import TestimonialsSection from '@/components/Home/TestimonialsSection';
 import FAQSection from '@/components/Home/FAQSection';
 import ContactSection from '@/components/Home/ContactSection';
+import Chatbot from '@/components/Chatbot';
 
 export default function HomePage() {
   return (
@@ -25,6 +26,7 @@ export default function HomePage() {
         <FAQSection />
         <ContactSection />
       </main>
+      <Chatbot />
     </>
   );
 }
