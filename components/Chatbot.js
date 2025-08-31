@@ -139,17 +139,23 @@ export default function Chatbot() {
         setIsLoading(true);
 
         try {
-            const params = new URLSearchParams({
-                message: inputMessage,
-                timestamp: new Date().toISOString(),
-                userId: 'web-user'
-            });
+            // Get recent messages for context (last 8 messages, excluding the current one)
+            const recentMessages = messages.slice(-8).map(msg => ({
+                role: msg.sender === 'user' ? 'user' : 'assistant',
+                content: msg.text.replace(/<[^>]*>/g, ''), // Strip HTML for cleaner context
+                timestamp: msg.timestamp
+            }));
+
+            // Create session ID based on user and date
+            const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+            const sessionId = `web-user_${currentDate}`;
             
-            // Create URL with query parameters for GET request
             const requestBody = {
                 message: inputMessage,
                 timestamp: new Date().toISOString(),
-                userId: 'web-user'
+                userId: 'web-user',
+                sessionId: sessionId,
+                previousMessages: recentMessages
             };
             
             console.log('Sending POST request to:', webhookUrl);
@@ -217,6 +223,10 @@ export default function Chatbot() {
                 errorText = 'Unable to connect to the AI service. Please check your internet connection.';
             } else if (error.message.includes('CORS')) {
                 errorText = 'Connection blocked by security policy. Please contact support.';
+            } else if (error.message.includes('memory') || error.message.includes('session')) {
+                errorText = 'Memory service temporarily unavailable. Your message was received but context may be limited.';
+            } else if (error.message.includes('timeout')) {
+                errorText = 'Request timed out. Please try again with a shorter message.';
             }
             
             const errorMessage = {
