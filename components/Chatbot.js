@@ -49,7 +49,7 @@ export default function Chatbot() {
         }
     }, [messages]);
 
-    const webhookUrl = 'https://dakshtandel.app.n8n.cloud/webhook/81bfb9f5-e6dd-4d5f-80e9-97eab5363f08';
+    const webhookUrl = 'https://dakshtandel.app.n8n.cloud/webhook/ZockTech'
 
     // Function to format menu text into table HTML
     const formatMenuResponse = (text) => {
@@ -114,6 +114,66 @@ export default function Chatbot() {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
+    // Function to play notification sound for bot responses
+    const playNotificationSound = () => {
+        try {
+            // Create audio context
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Create oscillator for a pleasant notification sound
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            // Connect nodes
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Configure sound - a gentle two-tone notification
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.setValueAtTime(600, audioContext.currentTime + 0.1);
+            
+            // Set volume (gentle sound)
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            
+            // Play sound
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+        } catch (error) {
+            console.log('Audio notification not available:', error);
+        }
+    };
+
+    // Function to play send sound for user messages
+    const playSendSound = () => {
+        try {
+            // Create audio context
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Create oscillator for a send sound
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            // Connect nodes
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Configure sound - a quick ascending tone for send
+            oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+            oscillator.frequency.setValueAtTime(600, audioContext.currentTime + 0.05);
+            
+            // Set volume (gentle sound)
+            gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+            
+            // Play sound
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.15);
+        } catch (error) {
+            console.log('Audio send sound not available:', error);
+        }
+    };
+
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
@@ -135,6 +195,7 @@ export default function Chatbot() {
         };
 
         setMessages(prev => [...prev, userMessage]);
+        playSendSound();
         setInputMessage('');
         setIsLoading(true);
 
@@ -146,14 +207,28 @@ export default function Chatbot() {
                 timestamp: msg.timestamp
             }));
 
-            // Create session ID based on user and date
+            // Create unique device identifier with browser fingerprint
+            let deviceId = localStorage.getItem('chatbot-device-id');
+            if (!deviceId) {
+                const browserInfo = navigator.userAgent.slice(-10).replace(/[^a-zA-Z0-9]/g, '');
+                const randomId = Math.random().toString(36).substr(2, 9);
+                const timestamp = Date.now();
+                deviceId = `device_${browserInfo}_${randomId}_${timestamp}`;
+                localStorage.setItem('chatbot-device-id', deviceId);
+            }
+            
+            // Create session ID based on device and date
             const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
-            const sessionId = `web-user_${currentDate}`;
+            const sessionId = `${deviceId}_${currentDate}`;
+            
+            // Debug logging
+            console.log('Device ID:', deviceId);
+            console.log('Session ID:', sessionId);
             
             const requestBody = {
                 message: inputMessage,
                 timestamp: new Date().toISOString(),
-                userId: 'web-user',
+                userId: deviceId, // Use device-specific userId
                 sessionId: sessionId,
                 previousMessages: recentMessages
             };
@@ -194,10 +269,13 @@ export default function Chatbot() {
                 // Format menu responses into table format
                 const formattedText = formatMenuResponse(responseText || 'Hello! How can I help you today?');
                 
+                // Check if the response contains HTML tags
+                const containsHTML = /<[^>]*>/g.test(formattedText);
+                
                 botResponse = {
                     id: Date.now() + 1,
                     text: formattedText,
-                    isHTML: formattedText.includes('<table'),
+                    isHTML: containsHTML,
                     sender: 'bot',
                     timestamp: new Date().toLocaleTimeString()
                 };
@@ -215,6 +293,7 @@ export default function Chatbot() {
             }
 
             setMessages(prev => [...prev, botResponse]);
+            playNotificationSound();
         } catch (error) {
             console.error('Error sending message:', error);
             let errorText = 'Sorry, there was an error processing your message.';
@@ -236,6 +315,7 @@ export default function Chatbot() {
                 timestamp: new Date().toLocaleTimeString()
             };
             setMessages(prev => [...prev, errorMessage]);
+            playNotificationSound();
         } finally {
             setIsLoading(false);
         }
@@ -264,49 +344,49 @@ export default function Chatbot() {
             {/* Chat Toggle Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+                className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white p-3 sm:p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
                 aria-label="Toggle chat"
             >
                 {isOpen ? (
-                    <XMarkIcon className="h-6 w-6" />
+                    <XMarkIcon className="h-5 w-5 sm:h-6 sm:w-6" />
                 ) : (
-                    <ChatBubbleLeftRightIcon className="h-6 w-6" />
+                    <ChatBubbleLeftRightIcon className="h-5 w-5 sm:h-6 sm:w-6" />
                 )}
             </button>
 
             {/* Chat Window */}
             {isOpen && (
-                <div className="fixed bottom-24 right-6 z-40 w-[500px] h-[500px] bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col overflow-hidden">
+                <div className="fixed inset-x-4 bottom-20 top-20 sm:bottom-24 sm:right-6 sm:top-auto sm:left-auto sm:w-[420px] sm:h-[600px] md:w-[500px] md:h-[650px] z-40 bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col overflow-hidden">
                     {/* Header */}
-                    <div className="bg-blue-600 text-white p-4 flex items-center justify-between">
+                    <div className="bg-blue-600 text-white p-3 sm:p-4 flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <ChatBubbleLeftRightIcon className="h-5 w-5" />
-                            <h3 className="font-semibold">ZockTech Assistant</h3>
+                            <ChatBubbleLeftRightIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+                            <h3 className="font-semibold text-sm sm:text-base">ZockTech Assistant</h3>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 sm:gap-3">
                             <button
                                 onClick={clearChat}
                                 className="p-1 hover:bg-blue-700 rounded transition-colors duration-200"
                                 title="Clear chat history"
                             >
-                                <TrashIcon className="h-4 w-4" />
+                                <TrashIcon className="h-3 w-3 sm:h-4 sm:w-4" />
                             </button>
                             <div className="flex items-center gap-1">
-                                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                                <span className="text-xs">Online</span>
+                                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                <span className="text-xs hidden sm:inline">Online</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Messages */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+                    <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-gray-50">
                         {messages.map((message) => (
                             <div
                                 key={message.id}
                                 className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                             >
                                 <div
-                                    className={`max-w-[80%] p-3 rounded-lg ${
+                                    className={`max-w-[85%] sm:max-w-[80%] p-2.5 sm:p-3 rounded-lg shadow-sm ${
                                         message.sender === 'user'
                                             ? 'bg-blue-600 text-white rounded-br-none'
                                             : 'bg-white text-gray-800 rounded-bl-none border border-gray-200'
@@ -314,16 +394,16 @@ export default function Chatbot() {
                                 >
                                     {message.isHTML ? (
                                         <div 
-                                            className="text-sm overflow-x-auto"
+                                            className="text-sm leading-relaxed overflow-x-auto"
                                             dangerouslySetInnerHTML={{ __html: message.text }}
                                             style={{
                                                 maxWidth: '100%'
                                             }}
                                         />
                                     ) : (
-                                        <p className="text-sm">{message.text}</p>
+                                        <p className="text-sm leading-relaxed">{message.text}</p>
                                     )}
-                                    <p className={`text-xs mt-1 ${
+                                    <p className={`text-xs mt-1.5 ${
                                         message.sender === 'user' ? 'text-blue-100' : 'text-gray-500'
                                     }`}>
                                         {message.timestamp}
@@ -334,11 +414,11 @@ export default function Chatbot() {
                         
                         {isLoading && (
                             <div className="flex justify-start">
-                                <div className="bg-white text-gray-800 rounded-lg rounded-bl-none border border-gray-200 p-3">
+                                <div className="bg-white text-gray-800 rounded-lg rounded-bl-none border border-gray-200 p-2.5 sm:p-3 shadow-sm">
                                     <div className="flex space-x-1">
-                                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                                        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                                        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                                        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                                     </div>
                                 </div>
                             </div>
@@ -348,7 +428,7 @@ export default function Chatbot() {
                     </div>
 
                     {/* Input */}
-                    <div className="p-4 border-t border-gray-200 bg-white">
+                    <div className="p-3 sm:p-4 border-t border-gray-200 bg-white">
                         <div className="flex gap-2">
                             <input
                                 ref={inputRef}
@@ -357,15 +437,15 @@ export default function Chatbot() {
                                 onChange={(e) => setInputMessage(e.target.value)}
                                 onKeyPress={handleKeyPress}
                                 placeholder="Type your message..."
-                                className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
+                                className="flex-1 p-2.5 sm:p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800 text-sm sm:text-base"
                                 disabled={isLoading}
                             />
                             <button
                                 onClick={sendMessage}
                                 disabled={!inputMessage.trim() || isLoading}
-                                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white p-2 rounded-lg transition-colors duration-200"
+                                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white p-2.5 sm:p-3 rounded-lg transition-colors duration-200 min-w-[44px] flex items-center justify-center"
                             >
-                                <PaperAirplaneIcon className="h-5 w-5" />
+                                <PaperAirplaneIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                             </button>
                         </div>
                     </div>
