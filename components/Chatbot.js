@@ -49,7 +49,7 @@ export default function Chatbot() {
         }
     }, [messages]);
 
-    const webhookUrl = 'https://dakshtandel.app.n8n.cloud/webhook/ZockTech'
+    const webhookUrl = 'https://n8n.srv992141.hstgr.cloud/webhook/ZockTech'
 
     // Function to format menu text into table HTML
     const formatMenuResponse = (text) => {
