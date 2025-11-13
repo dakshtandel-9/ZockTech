@@ -5,16 +5,13 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 const allProjects = [
-  { title: 'House of Indya', tag: 'Fashion • Ethnicwear', href: 'https://www.houseofindya.com', img: '/portfolio/01.png' },
-  { title: 'boohoo', tag: 'Fashion • Marketplace', href: 'https://www.boohoo.com', img: '/portfolio/02.png' },
-  { title: 'Damart UK', tag: 'Fashion • Retail', href: 'https://www.damart.co.uk', img: '/portfolio/03.png' },
-  { title: 'Ganga Fashions', tag: 'Fashion • Ethnicwear', href: 'https://www.gangafashions.com', img: '/portfolio/04.png' },
-  { title: 'Shoppers Stop (Past)', tag: 'Department Store', href: 'https://www.shoppersstop.com', img: '/portfolio/05.png' },
-  { title: 'Nebesa Organics', tag: 'Beauty • D2C', href: 'https://nebesaorganics.com', img: '/portfolio/06.png' },
-  { title: 'Ozomax', tag: 'Appliances • D2C', href: 'https://ozomax.in/', img: '/portfolio/07.png' },
-  { title: 'Dinakar Watch Works', tag: 'Watches • Local', href: 'https://dinakarwatchworks.com', img: '/portfolio/08.png' },
-  { title: 'Comhard', tag: 'Industrial • B2B', href: 'https://www.comhard.co.in', img: '/portfolio/09.png' },
-  { title: 'Into The Wild Adventures', tag: 'Travel • Experiences', href: 'https://intothewildadventures.in', img: '/portfolio/10.png' },
+  { title: '35 Frames Photography', tag: 'Photography Studio', href: 'https://www.35framesphotography.in', img: '/portfolio/35frames.png' },
+  { title: 'HV Fashion', tag: 'Fashion', href: 'https://hvfashion.vercel.app', img: '/portfolio/hv.png' },
+  { title: 'Arjun Hospital', tag: 'Hospital', href: 'https://www.arjunhospital.in', img: '/portfolio/arjun.png' },
+  { title: 'Identity Dental', tag: 'Dental Clinic', href: 'https://www.identitydental.in', img: '/portfolio/identity.png' },
+  { title: 'K Manjunath Associates', tag: 'Legal Firm', href: 'https://kmanjunathassociates.in', img: '/portfolio/kmanjunath.png' },
+  { title: 'SRK Holidays and Travels', tag: 'Travel Agency', href: 'https://srkholidaysandtravels.com', img: '/portfolio/srktravels.png' },
+  { title: 'Tr Enterprises', tag: 'Enterprise', href: 'https://trenterprises.in', img: '/portfolio/tr.png' },
 ];
 
 export default function PortfolioPreview() {
