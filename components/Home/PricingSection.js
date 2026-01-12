@@ -10,7 +10,7 @@ export default function PricingSection() {
   const tiers = [
     {
       name: 'One‑Page Website',
-      price: '₹2,999',
+      price: '₹3,999',
       period: 'one-time',
       tagline: 'Launch fast with a focused landing page.',
       popular: false,
@@ -26,7 +26,7 @@ export default function PricingSection() {
     },
     {
       name: 'Dynamic Website',
-      price: '₹6,499',
+      price: '₹7,499',
       period: 'one-time',
       tagline: 'Multi-page site with blog and forms.',
       popular: true,
@@ -42,7 +42,7 @@ export default function PricingSection() {
     },
     {
       name: 'E‑commerce Website',
-      price: '₹9,999',
+      price: '₹10,999',
       period: 'one-time',
       tagline: 'Sell online with optimized product flows.',
       popular: false,

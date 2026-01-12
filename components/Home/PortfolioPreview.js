@@ -7,11 +7,11 @@ import Image from 'next/image';
 const allProjects = [
   { title: '35 Frames Photography', tag: 'Photography Studio', href: 'https://www.35framesphotography.in', img: '/portfolio/35frames.png' },
   { title: 'HV Fashion', tag: 'Fashion', href: 'https://hvfashion.vercel.app', img: '/portfolio/hv.png' },
-  { title: 'Arjun Hospital', tag: 'Hospital', href: 'https://www.arjunhospital.in', img: '/portfolio/arjun.png' },
+  { title: 'Arjun Hospital', tag: 'Hospital', href: 'https://www.arjunhospital.in', img: '/portfolio/Arjun.png' },
   { title: 'Identity Dental', tag: 'Dental Clinic', href: 'https://www.identitydental.in', img: '/portfolio/identity.png' },
   { title: 'K Manjunath Associates', tag: 'Legal Firm', href: 'https://kmanjunathassociates.in', img: '/portfolio/kmanjunath.png' },
-  { title: 'SRK Holidays and Travels', tag: 'Travel Agency', href: 'https://srkholidaysandtravels.com', img: '/portfolio/srktravels.png' },
-  { title: 'Tr Enterprises', tag: 'Enterprise', href: 'https://trenterprises.in', img: '/portfolio/tr.png' },
+  { title: 'Sarala Foundation', tag: 'Travel Agency', href: 'https://saralafoundation-india.org', img: '/portfolio/sarala.png' },
+  { title: 'Insightoria Testing', tag: 'Enterprise', href: 'https://insightoriatesting.com', img: '/portfolio/insightoriatesting.png' },
 ];
 
 export default function PortfolioPreview() {
