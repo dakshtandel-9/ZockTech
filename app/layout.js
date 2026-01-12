@@ -26,16 +26,20 @@ export const metadata = {
     "website development in Honnavar",
   ],
   author: "ZockTech",
+  icons: {
+    icon: "/logo-3.png",
+    apple: "/logo-3.png",
+  },
   "og:title": "ZockTech - Web Development and Digital Marketing",
   "og:description":
     "ZockTech is a leading web development and digital marketing agency based in Bangalore, Uttara Kannada, and Honnavar. We specialize in creating stunning, high-performance websites and implementing effective digital marketing strategies to help your business grow. Our services include web development, SEO, social media marketing, and content creation.",
-  "og:image": "/logo.png",
+  "og:image": "/logo-3.png",
   "og:url": "https://zocktech.com",
   "twitter:card": "summary_large_image",
   "twitter:title": "ZockTech - Web Development and Digital Marketing",
   "twitter:description":
     "ZockTech is a leading web development and digital marketing agency based in Bangalore, Uttara Kannada, and Honnavar. We specialize in creating stunning, high-performance websites and implementing effective digital marketing strategies to help your business grow. Our services include web development, SEO, social media marketing, and content creation.",
-  "twitter:image": "/logo.png",
+  "twitter:image": "/logo-3.png",
 };
 
 export default function RootLayout({ children }) {
