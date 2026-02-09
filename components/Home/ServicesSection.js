@@ -33,7 +33,7 @@ export default function ServicesSection() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {services.map(({ title, desc, Icon }) => (
-            <div key={title} className="rounded-lg border border-white/5 bg-[#111116] p-6">
+            <div key={title} className="flex flex-col rounded-lg border border-white/5 bg-[#111116] p-6 h-full">
               <div className="flex h-12 w-12 items-center justify-center rounded-md border border-white/10 bg-white/5">
                 <Icon />
               </div>

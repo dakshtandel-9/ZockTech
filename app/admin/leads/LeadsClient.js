@@ -2,6 +2,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import Link from 'next/link';
 
 export default function LeadsClient({ leads }) {
     const [query, setQuery] = useState('');
@@ -69,6 +70,20 @@ export default function LeadsClient({ leads }) {
                     <p className="mt-2 text-base text-gray-400">
                         {sorted.length} result{sorted.length !== 1 ? 's' : ''} • Manage filters and search below
                     </p>
+                </div>
+                <div className="flex gap-3">
+                    <Link
+                        href="/admin/portfolio"
+                        className="rounded-[5px] border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium hover:bg-white/10 transition-colors"
+                    >
+                        Portfolio
+                    </Link>
+                    <Link
+                        href="/admin/settings"
+                        className="rounded-[5px] border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium hover:bg-white/10 transition-colors"
+                    >
+                        Settings
+                    </Link>
                 </div>
             </div>
 

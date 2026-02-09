@@ -1,11 +1,12 @@
 // app/api/health/db/route.js
 import { NextResponse } from 'next/server';
-import { dbConnect } from '@/lib/mongodb';
+import { supabase } from '@/lib/supabase';
 
 export async function GET() {
     try {
-        const conn = await dbConnect();
-        return NextResponse.json({ ok: true, host: conn?.connection?.host || 'unknown' });
+        const { data, error } = await supabase.from('leads').select('count', { count: 'exact', head: true });
+        if (error) throw error;
+        return NextResponse.json({ ok: true, status: 'Supabase connected' });
     } catch (e) {
         return NextResponse.json(
             { ok: false, error: e instanceof Error ? e.message : String(e) },

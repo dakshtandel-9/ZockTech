@@ -1,10 +1,10 @@
 // components/portfolio/PortfolioPreview.js
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-const allProjects = [
+const staticProjects = [
   { title: '35 Frames Photography', tag: 'Photography Studio', href: 'https://www.35framesphotography.in', img: '/portfolio/35frames.png' },
   { title: 'HV Fashion', tag: 'Fashion', href: 'https://hvfashion.vercel.app', img: '/portfolio/hv.png' },
   { title: 'Arjun Hospital', tag: 'Hospital', href: 'https://www.arjunhospital.in', img: '/portfolio/Arjun.png' },
@@ -17,6 +17,36 @@ const allProjects = [
 export default function PortfolioPreview() {
   const PAGE = 6;
   const [visible, setVisible] = useState(PAGE);
+  const [allProjects, setAllProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch from Supabase
+    fetch('/api/portfolio')
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok && data.items && data.items.length > 0) {
+          // Use DB items
+          setAllProjects(data.items.map(item => ({
+            id: item.id,
+            title: item.title,
+            tag: item.tag,
+            href: item.href,
+            img: item.image_url
+          })));
+        } else {
+          // Fallback to static if DB is empty
+          setAllProjects(staticProjects);
+        }
+      })
+      .catch(() => {
+        // On error, use static
+        setAllProjects(staticProjects);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const shown = allProjects.slice(0, visible);
   const hasMore = visible < allProjects.length;
@@ -39,64 +69,77 @@ export default function PortfolioPreview() {
           </div>
         </div>
 
-        <div className="mt-10 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {shown.map((p) => (
-            <a
-              key={p.title}
-              href={p.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group text-white relative flex h-full flex-col overflow-hidden rounded-lg border border-white/5 bg-[#111116]"
-            >
-              {/* Media/logo area */}
-              <div className="flex h-40 items-center justify-center bg-white/5">
-                {p.img ? (
-                  <Image
-                    src={p.img}
-                    alt={`${p.title} logo`}
-                    width={200}             // intrinsic size to prevent layout shift
-                    height={60}
-                    className="w-100 object-contain"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="flex h-10 items-center rounded-md border border-white/10 bg-white/5 px-3 text-base text-gray-300">
-                    {domainFromUrl(p.href)}
+        {loading ? (
+          <div className="mt-10 text-center text-gray-400">Loading portfolio...</div>
+        ) : allProjects.length === 0 ? (
+          <div className="mt-10 text-center text-gray-400">No projects to display</div>
+        ) : (
+          <>
+            <div className="mt-12 grid items-stretch gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {shown.map((p) => (
+                <a
+                  key={p.title}
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-[#0B0B0F] transition-colors duration-300 hover:border-[#FF7302]/30"
+                >
+                  {/* Image Container */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-white/5">
+                    {p.img ? (
+                      <Image
+                        src={p.img}
+                        alt={`${p.title} thumbnail`}
+                        fill
+                        className="object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center font-mono text-sm text-gray-500">
+                        {domainFromUrl(p.href)}
+                      </div>
+                    )}
+
+                    {/* Floating Tag - Moved to bottom */}
+                    <div className="absolute left-4 bottom-4">
+                      <span className="inline-flex items-center rounded-full border border-white/20 bg-black/60 backdrop-blur-sm px-3 py-1 text-xs font-semibold text-white">
+                        {p.tag}
+                      </span>
+                    </div>
                   </div>
-                )}
-              </div>
 
-              {/* Content */}
-              <div className="flex flex-1 flex-col p-5">
-                <span className="inline-flex w-fit items-center rounded-[5px] border border-white/10 bg-white/5 px-2 py-1 text-xs font-medium text-gray-300">
-                  {p.tag}
-                </span>
-                <h3 className="mt-2 text-xl font-semibold group-hover:underline">{p.title}</h3>
+                  {/* Content Panel */}
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="text-lg font-bold text-white transition-colors duration-300 group-hover:text-[#FF7302]">
+                      {p.title}
+                    </h3>
 
-                {/* Footer CTA aligned */}
-                <div className="mt-auto pt-5">
-                  <span className="inline-flex items-center text-base font-semibold text-[#FF7302]">
-                    Visit site
-                    <svg className="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path d="M12.293 3.293a1 1 0 1 1 1.414 1.414L8.414 10l5.293 5.293a1 1 0 0 1-1.414 1.414l-6-6a1 1 0 0 1 0-1.414l6-6Z" />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
+                    {/* Footer Link */}
+                    <div className="mt-auto pt-5 flex items-center justify-between">
+                      <span className="text-xs font-semibold tracking-widest text-[#FF7302] uppercase flex items-center">
+                        View website
+                        <svg className="ml-1 h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M12.293 3.293a1 1 0 1 1 1.414 1.414L8.414 10l5.293 5.293a1 1 0 0 1-1.414 1.414l-6-6a1 1 0 0 1 0-1.414l6-6Z" transform="scale(-1, 1) translate(-20, 0)" />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
 
-        {/* See more / See less */}
-        <div className="mt-8 flex justify-center">
-          <button
-            type="button"
-            onClick={onToggle}
-            className="inline-flex items-center justify-center rounded-[5px] border border-white/15 px-5 py-2 text-base font-semibold text-white hover:bg-white/5"
-          >
-            {hasMore ? 'See more' : 'See less'}
-          </button>
-        </div>
+            {/* See more / See less */}
+            <div className="mt-8 flex justify-center">
+              <button
+                type="button"
+                onClick={onToggle}
+                className="inline-flex items-center justify-center rounded-[5px] border border-white/15 px-5 py-2 text-base font-semibold text-white hover:bg-white/5"
+              >
+                {hasMore ? 'See more' : 'See less'}
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

@@ -53,15 +53,17 @@ export default function ProcessSection() {
                         {/* connector line */}
                         <div className="pointer-events-none absolute left-0 right-0 top-6 h-0.5 bg-white/10" />
                         {steps.map((s) => (
-                            <li key={s.n} className="relative">
+                            <li key={s.n} className="relative flex flex-col">
                                 <div className="relative z-10 inline-flex h-12 w-12 items-center justify-center rounded-[5px] bg-[#FF7302] text-sm font-bold text-black">
                                     {s.n}
                                 </div>
-                                <div className="mt-4 rounded-lg border border-white/5 bg-[#111116] p-5">
+                                <div className="mt-4 flex-1 flex flex-col rounded-lg border border-white/5 bg-[#111116] p-5">
                                     <h3 className="text-base font-semibold">{s.title}</h3>
                                     <p className="mt-2 text-base text-gray-300">{s.desc}</p>
-                                    <div className="mt-3 inline-flex items-center rounded-[5px] border border-white/10 bg-white/5 px-2 py-1 text-xs text-gray-300">
-                                        Deliverable: {s.deliverable}
+                                    <div className="mt-auto pt-3">
+                                        <div className="inline-flex items-center rounded-[5px] border border-white/10 bg-white/5 px-2 py-1 text-xs text-gray-300">
+                                            Deliverable: {s.deliverable}
+                                        </div>
                                     </div>
                                 </div>
                             </li>

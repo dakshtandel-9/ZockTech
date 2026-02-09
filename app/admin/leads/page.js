@@ -1,8 +1,7 @@
 // app/admin/leads/page.js
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
-import { dbConnect } from '@/lib/mongodb';
-import Lead from '@/models/Lead';
+import { supabase } from '@/lib/supabase';
 import LeadsClient from './LeadsClient';
 
 export const dynamic = 'force-dynamic';
@@ -14,15 +13,23 @@ export default async function LeadsAdminPage() {
 
     let leads = [];
     try {
-        await dbConnect();
-        leads = await Lead.find(
-            {},
-            'name email phone projectType budget timeline message createdAt'
-        )
-            .sort({ createdAt: -1 })
-            .lean();
+        const { data, error } = await supabase
+            .from('leads')
+            .select('id, name, email, phone, project_type, budget, timeline, message, created_at')
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        // Map created_at to createdAt for compatibility with LeadsClient if needed
+        // Map project_type to projectType if needed
+        leads = (data || []).map(lead => ({
+            ...lead,
+            _id: lead.id,
+            createdAt: lead.created_at,
+            projectType: lead.project_type
+        }));
     } catch (e) {
-        console.error('DB error:', e instanceof Error ? e.stack || e.message : JSON.stringify(e));
+        console.error('Supabase fetch error:', e instanceof Error ? e.stack || e.message : JSON.stringify(e));
     }
 
     return <LeadsClient leads={JSON.parse(JSON.stringify(leads))} />;

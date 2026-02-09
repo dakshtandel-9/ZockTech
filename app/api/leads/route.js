@@ -1,7 +1,6 @@
 // app/api/leads/route.js
 import { NextResponse } from 'next/server';
-import { dbConnect } from '@/lib/mongodb';
-import Lead from '@/models/Lead';
+import { supabase } from '@/lib/supabase';
 
 export async function POST(req) {
     try {
@@ -14,21 +13,30 @@ export async function POST(req) {
             }
         }
 
-        await dbConnect();
+        const { data: doc, error } = await supabase
+            .from('leads')
+            .insert([
+                {
+                    name: data.name,
+                    email: data.email,
+                    phone: data.phone,
+                    website: data.website || '',
+                    project_type: data.projectType || '',
+                    budget: data.budget || '',
+                    timeline: data.timeline || '',
+                    message: data.message,
+                    source: data.source || 'website',
+                }
+            ])
+            .select()
+            .single();
 
-        const doc = await Lead.create({
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            website: data.website || '',
-            projectType: data.projectType || '',
-            budget: data.budget || '',
-            timeline: data.timeline || '',
-            message: data.message,
-            source: data.source || 'website',
-        });
+        if (error) {
+            console.error('Supabase error:', error);
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
 
-        return NextResponse.json({ ok: true, id: String(doc._id) }, { status: 201 });
+        return NextResponse.json({ ok: true, id: String(doc.id) }, { status: 201 });
     } catch (e) {
         console.error('POST /api/leads failed:', e instanceof Error ? e.stack || e.message : e);
         return NextResponse.json({ error: 'Server error' }, { status: 500 });

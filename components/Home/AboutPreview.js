@@ -88,7 +88,7 @@ export default function AboutPreview() {
 
 function Stat({ number, label }) {
     return (
-        <div className="rounded-lg border border-white/5 bg-[#111116] p-4">
+        <div className="h-full rounded-lg border border-white/5 bg-[#111116] p-4">
             <div className="text-2xl font-bold">{number}</div>
             <div className="mt-1 text-base text-gray-400">{label}</div>
         </div>
@@ -97,7 +97,7 @@ function Stat({ number, label }) {
 
 function ValueItem({ title, desc }) {
     return (
-        <div className="rounded-lg border border-white/5 bg-[#111116] p-5">
+        <div className="h-full rounded-lg border border-white/5 bg-[#111116] p-5">
             <h4 className="text-base font-semibold">{title}</h4>
             <p className="mt-2 text-base text-gray-400">{desc}</p>
         </div>

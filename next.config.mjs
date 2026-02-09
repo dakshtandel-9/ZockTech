@@ -11,8 +11,13 @@ const nextConfig = {
       { protocol: 'https', hostname: 'gangafashions.com' },
       { protocol: 'https', hostname: 'www.damart.co.uk' },
       { protocol: 'https', hostname: 'cmsimages.shoppersstop.com' },
+      { protocol: 'https', hostname: 'zocktech.com' },
+      { protocol: 'https', hostname: '*.zocktech.com' },
+      { protocol: 'https', hostname: 'ppdanmjlcbfryiqveetm.supabase.co' },
+      { protocol: 'https', hostname: 'iad.microlink.io' },
+      { protocol: 'https', hostname: 'api.microlink.io' },
+      { protocol: 'https', hostname: '**.microlink.io' },
       // Add more domains if you render images from other hosts
-      // { protocol: 'https', hostname: 'example-cdn.com' },
     ],
   },
 
