@@ -10,7 +10,7 @@ const ThemeContext = createContext({
 });
 
 export function ThemeProvider({ children }) {
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState('dark');
     const [mounted, setMounted] = useState(false);
     const [ready, setReady] = useState(false);
     const [animationKey, setAnimationKey] = useState(0);
@@ -26,9 +26,9 @@ export function ThemeProvider({ children }) {
                 document.documentElement.classList.remove('dark');
             }
         } else {
-            // Default: light theme — no dark class
-            document.documentElement.classList.remove('dark');
-            setTheme('light');
+            // Default: dark theme
+            document.documentElement.classList.add('dark');
+            setTheme('dark');
         }
     }, []);
 

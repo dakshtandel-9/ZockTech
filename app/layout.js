@@ -57,13 +57,11 @@ export default function RootLayout({ children }) {
               (function() {
                 try {
                   var stored = localStorage.getItem('theme');
-                  // Default is light — only apply dark if explicitly stored as 'dark'
-                  if (stored === 'dark') {
-                    document.documentElement.classList.add('dark');
-                  } else {
+                  // Default is dark — only apply light if explicitly stored as 'light'
+                  if (stored === 'light') {
                     document.documentElement.classList.remove('dark');
-                    // Migrate old default-dark storage to light
-                    if (!stored) localStorage.removeItem('theme');
+                  } else {
+                    document.documentElement.classList.add('dark');
                   }
                 } catch(e) {}
               })()
