@@ -1,86 +1,100 @@
-// components/testimonials/TestimonialsSection.js
-// Redesigned: infinite auto-scrolling marquee of testimonial cards
-// - 16px base, dark theme, accessible pause on hover/focus
-// - Duplicates the list to create a seamless loop
-// - Works without extra libs (pure CSS keyframes)
-
 'use client';
+import { motion } from 'framer-motion';
+import { Marquee } from '@/components/Marquee';
 
-const testimonials = [
-  { name: 'Ananya S.', role: 'Founder, Nebesa Organics', quote: 'They delivered a fast, modern site and our conversions improved within weeks.' },
-  { name: 'Rahul K.', role: 'Owner, Dinakar Watch Works', quote: 'Super responsive, clear pricing, and launch on time. Highly recommended.' },
-  { name: 'Meera P.', role: 'E‑commerce Lead, Fashion Brand', quote: 'Clean UX and faster load times helped reduce drop‑offs on PDPs.' },
-  { name: 'Thomas L.', role: 'Director, B2B Industrial', quote: 'Great with integrations and dashboards—exactly what our team needed.' },
-  { name: 'Isha G.', role: 'Founder, D2C Accessories', quote: 'Smooth Shopify setup and support post‑launch made a big difference.' },
-  { name: 'Arjun V.', role: 'Marketing Head, Retail', quote: 'Strong focus on SEO basics and performance right from day one.' },
-  // Add/replace with real quotes as available
+const reviews = [
+    { body: 'Daksh built our gym website in 4 days. Clean, fast, and exactly what we wanted.', name: 'KA17 Fitness Studio', username: '@ka17fitness', img: 'https://avatar.vercel.sh/ka17fitness' },
+    { body: 'The salon website looks premium. We started getting enquiries within the first week.', name: 'Wellness Client', username: '@wellness', img: 'https://avatar.vercel.sh/wellness' },
+    { body: 'SRK Holidays website was delivered on time. Clients love how it looks on mobile.', name: 'SRK Holidays', username: '@srkholidays', img: 'https://avatar.vercel.sh/srkholidays' },
+    { body: 'Very professional. WhatsApp communication made the whole process easy and quick.', name: 'Fitness World Gym', username: '@fitnessworld', img: 'https://avatar.vercel.sh/fitnessworld' },
+    { body: 'The foundation website looks clean and trustworthy. Exactly what we needed.', name: 'MATRI DIVYA', username: '@matridivya', img: 'https://avatar.vercel.sh/matridivya' },
+    { body: 'Pricing was clear from day one. No surprises. Site went live in 5 days.', name: 'D2C Brand', username: '@d2cbrand', img: 'https://avatar.vercel.sh/d2cbrand' },
 ];
 
-// Duplicate array for seamless loop
-const loopTestimonials = [...testimonials, ...testimonials];
+const firstRow = [reviews[0], reviews[1], reviews[2]];
+const secondRow = [reviews[3], reviews[4], reviews[5]];
+const thirdRow = [reviews[1], reviews[5], reviews[0]];
+const fourthRow = [reviews[4], reviews[2], reviews[3]];
+
+const ReviewCard = ({ img, name, username, body }) => {
+    return (
+        <figure
+            className="relative h-full w-64 cursor-pointer overflow-hidden rounded-xl border p-4 border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05] dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15] transition-colors"
+        >
+            <div className="flex flex-row items-center gap-2">
+                <img className="rounded-full" width="32" height="32" alt="" src={img} />
+                <div className="flex flex-col">
+                    <figcaption className="text-sm font-medium dark:text-white">
+                        {name}
+                    </figcaption>
+                    <p className="text-xs font-medium dark:text-white/40">{username}</p>
+                </div>
+            </div>
+            <blockquote className="mt-2 text-sm text-gray-800 dark:text-gray-300">
+                "{body}"
+            </blockquote>
+        </figure>
+    );
+};
 
 export default function TestimonialsSection() {
-  return (
-    <section id="testimonials" className="py-16">
-      <div className="mx-auto max-w-7xl px-4">
-        <div className="text-center max-w-2xl mx-auto">
-          <span className="inline-flex items-center rounded-[5px] border border-white/10 bg-white/5 px-3 py-1 text-base text-gray-300">
-            Testimonials
-          </span>
-          <h2 className="mt-4 text-3xl text-white font-semibold">What clients say</h2>
-          <p className="mt-3 text-base text-gray-400">Real feedback from brands and small businesses we’ve helped grow.</p>
-        </div>
+    return (
+        <section id="testimonials" className="py-20 relative overflow-hidden bg-white dark:bg-[#0a0a0a]">
+            <div className="mx-auto max-w-7xl px-4 relative z-10">
+                <div className="text-center max-w-2xl mx-auto mb-12">
+                    <motion.span
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-80px' }}
+                        transition={{ duration: 0.5 }}
+                        className="inline-block text-xs font-medium uppercase tracking-widest text-[#FF9500] mb-3"
+                    >
+                        Testimonials
+                    </motion.span>
+                    <motion.h2
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-80px' }}
+                        transition={{ duration: 0.5 }}
+                        className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white"
+                    >
+                        What clients say
+                    </motion.h2>
+                    <motion.p
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-80px' }}
+                        transition={{ delay: 0.1, duration: 0.5 }}
+                        className="mt-3 text-base text-gray-600 dark:text-[#888888]"
+                    >
+                        Real feedback from businesses we've built for.
+                    </motion.p>
+                </div>
 
-        {/* Marquee container */}
-        <div className="mt-10 relative overflow-hidden">
-          {/* gradient edges */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#0B0B0F] to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#0B0B0F] to-transparent" />
-
-          {/* Track */}
-          <div
-            className="group flex gap-4 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
-            aria-label="Client testimonials carousel"
-          >
-            <ul className="animate-marquee flex shrink-0 gap-4 py-2 group-hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
-              {loopTestimonials.map((t, i) => (
-                <TestimonialCard key={`${t.name}-${i}`} {...t} />
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Small helper note for accessibility */}
-        <p className="sr-only">Carousel pauses on hover or focus.</p>
-      </div>
-
-      {/* Styles scoped to this file via Tailwind arbitrary variants */}
-      <style jsx global>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          width: max-content;
-          animation: marquee 35s linear infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .animate-marquee {
-            animation: none !important;
-          }
-        }
-      `}</style>
-    </section>
-  );
-}
-
-function TestimonialCard({ quote, name, role }) {
-  return (
-    <li className="w-[320px] snap-start">
-      <figure className="h-full rounded-lg border border-white/5 bg-[#111116] p-5">
-        <blockquote className="text-base text-gray-200">“{quote}”</blockquote>
-        <figcaption className="mt-4 text-base text-gray-400">— {name}, {role}</figcaption>
-      </figure>
-    </li>
-  );
+                <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+                    {/* Row 1 — scrolls LEFT */}
+                    <Marquee pauseOnHover className="[--duration:25s]">
+                        {firstRow.map((review, i) => (
+                            <ReviewCard key={i} {...review} />
+                        ))}
+                    </Marquee>
+                    {/* Row 2 — scrolls RIGHT */}
+                    <Marquee reverse pauseOnHover className="[--duration:25s]">
+                        {secondRow.map((review, i) => (
+                            <ReviewCard key={i} {...review} />
+                        ))}
+                    </Marquee>
+                    {/* Row 3 — scrolls LEFT */}
+                    <Marquee pauseOnHover className="[--duration:25s]">
+                        {thirdRow.map((review, i) => (
+                            <ReviewCard key={i} {...review} />
+                        ))}
+                    </Marquee>
+                    {/* Gradient edges */}
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-white dark:from-[#0a0a0a] to-transparent z-10"></div>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-white dark:from-[#0a0a0a] to-transparent z-10"></div>
+                </div>
+            </div>
+        </section>
+    );
 }

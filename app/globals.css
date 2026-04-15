@@ -1,26 +1,223 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark, .dark *));
+
 :root {
-  --background: #000000;
-  --foreground: #171717;
+  --bg: #ffffff;
+  --surface: #f9fafb;
+  --border: #e5e7eb;
+  --orange: #FF9500;
+  --text: #111827;
+  --muted: #6b7280;
+  --green: #25D366;
+  --background: #ffffff;
+  --foreground: #111827;
+
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --border: #1f1f1f;
+  --orange: #FF9500;
+  --text: #ffffff;
+  --muted: #888888;
+  --green: #25D366;
+  --background: #0a0a0a;
+  --foreground: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Keyframes ── */
+
+@keyframes rainbow {
+  0%   { background-position: 0%; }
+  100% { background-position: 200%; }
+}
+
+.animate-rainbow {
+  animation: rainbow var(--speed, 2s) infinite linear;
+  background-size: 200%;
+}
+
+@keyframes shimmer-slide {
+  to { transform: translate(calc(100cqw - 100%), 0); }
+}
+
+@keyframes spin-around {
+  0%         { transform: translateZ(0) rotate(0deg); }
+  15%, 35%   { transform: translateZ(0) rotate(90deg); }
+  65%, 85%   { transform: translateZ(0) rotate(270deg); }
+  100%       { transform: translateZ(0) rotate(360deg); }
+}
+
+.animate-shimmer-slide {
+  animation: shimmer-slide var(--speed, 3s) ease-in-out infinite alternate;
+}
+
+.animate-spin-around {
+  animation: spin-around calc(var(--speed, 3s) * 2) infinite linear;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+.animate-marquee:hover,
+.group:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* ── Magic UI Marquee ── */
+@keyframes magic-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--gap))); }
+}
+@keyframes magic-marquee-vertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-100% - var(--gap))); }
+}
+.animate-magic-marquee {
+  animation: magic-marquee var(--duration) linear infinite;
+}
+.animate-magic-marquee-reverse {
+  animation: magic-marquee var(--duration) linear infinite reverse;
+}
+.animate-magic-marquee-vertical {
+  animation: magic-marquee-vertical var(--duration) linear infinite;
+}
+
+@keyframes trustbarMarquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-trustbar {
+  width: max-content;
+  animation: trustbarMarquee 40s linear infinite;
+}
+
+@keyframes whatsapp-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+  70%  { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: whatsapp-pulse 2s infinite;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.08);
+}
+
+@keyframes drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 32px 32px; }
+}
+
+.hero-dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, #2a2a2a 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.4;
+  pointer-events: none;
+  animation: drift 8s linear infinite;
+  z-index: 0;
+}
+
+/* Nav underline hover effect */
+.nav-link {
+  position: relative;
+  color: #444444;           /* light theme: dark grey — readable on white */
+  transition: color 0.2s ease;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+:is(.dark, .dark *) .nav-link {
+  color: #888888;            /* dark theme: muted grey */
+}
+
+.nav-link:hover {
+  color: #111111;            /* light: near-black on hover */
+}
+
+:is(.dark, .dark *) .nav-link:hover {
+  color: #ffffff;            /* dark: pure white on hover */
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #FF9500;
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* FAQ accordion */
+.faq-answer {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-trustbar,
+  .whatsapp-float,
+  .hero-dot-grid {
+    animation: none !important;
+  }
+}
+
+/* ── View Transition (AnimatedThemeToggler circular wipe) ── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
 }

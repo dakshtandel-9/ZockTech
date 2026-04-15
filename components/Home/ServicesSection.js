@@ -1,47 +1,100 @@
-import { SiWordpress, SiShopify, SiNextdotjs } from 'react-icons/si';
-import { WrenchScrewdriverIcon } from '@heroicons/react/24/solid';
+'use client';
+import { motion } from 'framer-motion';
+import FlowingMenu from '@/components/FlowingMenu';
+import { useTheme } from '@/components/ThemeProvider';
+
+const menuItems = [
+  {
+    text: 'Landing Page',
+    link: '/#contact',
+    image: '/portfolio/35frames.png',
+  },
+  {
+    text: 'Business Website',
+    link: '/#contact',
+    image: '/portfolio/sarala.png',
+  },
+  {
+    text: 'E-commerce Store',
+    link: '/#contact',
+    image: '/portfolio/identity.png',
+  },
+  {
+    text: 'Custom Web App',
+    link: '/#contact',
+    image: '/portfolio/insightoriatesting.png',
+  },
+];
 
 export default function ServicesSection() {
-  const services = [
-    {
-      title: 'WordPress Websites',
-      desc: 'Modern, fast, and easy to manage—built for conversions.',
-      Icon: () => <SiWordpress className="h-6 w-6" color="#21759B" />,
-    },
-    {
-      title: 'Shopify Stores',
-      desc: 'From setup to sales—optimized product pages and smooth checkout.',
-      Icon: () => <SiShopify className="h-6 w-6" color="#95BF47" />,
-    },
-    {
-      title: 'Custom (MERN/Next.js)',
-      desc: 'Performance, flexibility, and integrations that scale.',
-      Icon: () => <SiNextdotjs className="h-6 w-6" color="#FFFFFF" />,
-    },
-    {
-      title: 'Maintenance & Support',
-      desc: 'Security, updates, backups, and performance monitoring.',
-      Icon: () => <WrenchScrewdriverIcon className="h-6 w-6 text-gray-300" />,
-    },
-  ];
+  const { theme } = useTheme();
+
+  const isDark = theme === 'dark';
 
   return (
-    <section id="services" className="py-16">
+    <section id="services" className="py-20">
       <div className="mx-auto max-w-7xl px-4">
-        <h2 className="text-3xl font-semibold text-white">Services</h2>
-        <p className="mt-2 text-base text-gray-400">End‑to‑end delivery focused on ROI.</p>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {services.map(({ title, desc, Icon }) => (
-            <div key={title} className="flex flex-col rounded-lg border border-white/5 bg-[#111116] p-6 h-full">
-              <div className="flex h-12 w-12 items-center justify-center rounded-md border border-white/10 bg-white/5">
-                <Icon />
-              </div>
-              <h3 className="mt-4 text-xl font-semibold text-white">{title}</h3>
-              <p className="mt-2 text-base text-gray-400">{desc}</p>
-            </div>
-          ))}
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <motion.span
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5 }}
+            className="inline-block text-xs font-medium uppercase tracking-widest text-[#FF9500] mb-3"
+          >
+            What We Build
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white"
+          >
+            Services
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="mt-3 text-base text-gray-600 dark:text-[#888888]"
+          >
+            React + Next.js only. Fast delivery, clean code, no bloat.
+          </motion.p>
         </div>
+
+        {/* Flowing Menu */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6 }}
+          className="rounded-2xl overflow-hidden border border-gray-200 dark:border-[#1f1f1f]"
+          style={{ height: '400px' }}
+        >
+          <FlowingMenu
+            items={menuItems}
+            speed={18}
+            bgColor={isDark ? '#0a0a0a' : '#f9fafb'}
+            textColor={isDark ? '#ffffff' : '#111111'}
+            marqueeBgColor="#FF9500"
+            marqueeTextColor="#000000"
+            borderColor={isDark ? '#1f1f1f' : '#e5e7eb'}
+          />
+        </motion.div>
+
+        {/* Hint */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="mt-5 text-center text-xs text-gray-400 dark:text-[#555555] tracking-wide uppercase"
+        >
+          Hover over a service to explore ↑
+        </motion.p>
       </div>
     </section>
   );

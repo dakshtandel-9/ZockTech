@@ -1,146 +1,190 @@
-// components/faq/FAQSection.js
-// Redesigned: clean accordion with categories, searchable filter, and deep-linkable items
-// - 16px base, dark theme, accessible keyboard + ARIA
-// - Uses native <details>/<summary> for simplicity, with custom styles
-// - Optional: pass faqs via props; falls back to defaults
-
 'use client';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import BorderGlow from '@/components/BorderGlow';
+import { useTheme } from '@/components/ThemeProvider';
+import GlowButton from '@/components/RainbowButton';
 
-const DEFAULT_FAQS = [
-    { q: 'How fast can you deliver?', a: 'One‑page sites in 3 days, dynamic in 7–10 days, and e‑commerce in 10–15 days depending on content readiness.', cat: 'Timeline' },
-    { q: 'What is included in the packages?', a: 'Domain & hosting (1 year), SSL, responsive build, basic on‑page SEO, performance pass, and revisions as listed in each plan.', cat: 'Pricing & Inclusions' },
-    { q: 'Can you do custom builds?', a: 'Yes. We build custom MERN/Next.js apps including auth, dashboards, APIs, payments, and headless CMS. Pricing depends on scope.', cat: 'Custom' },
-    { q: 'Do you provide maintenance?', a: 'Yes, optional care plans cover updates, backups, security hardening, uptime monitoring, and minor fixes.', cat: 'Support' },
-    { q: 'What do you need to start?', a: 'Brand assets (logo/colors), sitemap, reference sites, copy or outlines, and any product/media files. We can help refine content.', cat: 'Getting Started' },
-    { q: 'How are payments structured?', a: 'Typically 50% to book, 50% on delivery. For larger custom projects, we split by milestones.', cat: 'Pricing & Inclusions' },
-    { q: 'Will the site be SEO‑ready?', a: 'We implement semantic HTML, metadata, sitemap, robots, basic schema, image alt, and performance best practices. Advanced SEO available as an add‑on.', cat: 'SEO & Performance' },
-    { q: 'Can I edit content myself?', a: 'Yes. WordPress/Shopify include easy editors; custom builds can use a headless CMS like Sanity or Contentful.', cat: 'CMS' },
+const faqs = [
+    {
+        q: 'How fast can you deliver?',
+        a: 'Basic landing page in 3–5 days. Pro business website in 5–7 days. Timeline starts after advance payment and kickoff form.',
+    },
+    {
+        q: 'What do you need from me to start?',
+        a: 'Your business name, logo, colour preferences, and any content you have. We guide you through everything else.',
+    },
+    {
+        q: 'How do I pay?',
+        a: '50% advance to start. 50% on delivery and approval. UPI and bank transfer accepted.',
+    },
+    {
+        q: 'Do you only work with React and Next.js?',
+        a: "Primarily yes. We also do pure HTML/CSS/JS for simple landing pages. We don't offer WordPress or Shopify builds.",
+    },
+    {
+        q: 'Do you offer revisions?',
+        a: 'Basic includes 1 revision round. Pro includes 2 revision rounds. Additional revisions at ₹500 each.',
+    },
+    {
+        q: 'Can you host the website?',
+        a: 'Yes. Hostinger hosting is included in the Pro package. For Basic, we help you set up your own hosting.',
+    },
+    {
+        q: 'Will the site work on mobile?',
+        a: 'Every site we build is mobile-first. We test on multiple screen sizes before delivery.',
+    },
+    {
+        q: 'Can I add more pages later?',
+        a: 'Yes. Additional pages are ₹1,000 each, added at any time after launch.',
+    },
 ];
 
-export default function FAQSection({ faqs = DEFAULT_FAQS }) {
-    const [query, setQuery] = useState('');
-    const [activeCat, setActiveCat] = useState('All');
+const GLOW_COLORS = ['#FF9500', '#ff6b00', '#ffcc44'];
 
-    const categories = useMemo(() => {
-        const set = new Set(['All', ...faqs.map(f => f.cat).filter(Boolean)]);
-        return Array.from(set);
-    }, [faqs]);
-
-    const filtered = useMemo(() => {
-        const q = query.trim().toLowerCase();
-        return faqs.filter(f => {
-            const matchCat = activeCat === 'All' || f.cat === activeCat;
-            const matchText = !q || (f.q + ' ' + f.a).toLowerCase().includes(q);
-            return matchCat && matchText;
-        });
-    }, [faqs, query, activeCat]);
+export default function FAQSection() {
+    const [openIdx, setOpenIdx] = useState(null);
+    const { theme } = useTheme();
+    const isDark = theme === 'dark';
+    const bgColor = isDark ? '#111111' : '#ffffff';
 
     return (
-        <section id="faqs" className="py-16">
+        <section id="faqs" className="py-20">
             <div className="mx-auto max-w-7xl px-4">
                 {/* Header */}
                 <div className="mx-auto max-w-2xl text-center">
-                    <span className="inline-flex items-center rounded-[5px] border border-white/10 bg-white/5 px-3 py-1 text-base text-gray-300">
+                    <motion.span
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-80px' }}
+                        transition={{ duration: 0.5 }}
+                        className="inline-block text-xs font-medium uppercase tracking-widest text-[#FF9500] mb-3"
+                    >
                         FAQs
-                    </span>
-                    <h2 className="mt-4 text-3xl font-semibold text-white">Everything you need to know</h2>
-                    <p className="mt-3 text-base text-gray-400">Can’t find what’s needed? Send a quick message and we’ll help right away.</p>
+                    </motion.span>
+                    <motion.h2
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-80px' }}
+                        transition={{ duration: 0.5 }}
+                        className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white"
+                    >
+                        Everything you need to know
+                    </motion.h2>
+                    <motion.p
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-80px' }}
+                        transition={{ delay: 0.1, duration: 0.5 }}
+                        className="mt-3 text-base text-gray-600 dark:text-[#888888]"
+                    >
+                        Can&apos;t find what you need? Chat with us on WhatsApp.
+                    </motion.p>
                 </div>
 
-                {/* Controls */}
-                <div className="mx-auto mt-6 flex max-w-3xl flex-col gap-3 sm:flex-row">
-                    <div className="flex-1">
-                        <label className="sr-only" htmlFor="faq-search">Search FAQs</label>
-                        <input
-                            id="faq-search"
-                            placeholder="Search questions (e.g., SEO, timeline, maintenance)"
-                            className="w-full rounded-[5px] border border-white/10 bg-[#0B0B0F] px-3 py-2 text-base text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#FF7302]/40"
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                        />
-                    </div>
-                    <div className="sm:w-60">
-                        <label className="sr-only" htmlFor="faq-category">Category</label>
-                        <select
-                            id="faq-category"
-                            className="w-full rounded-[5px] border border-white/10 bg-[#0B0B0F] px-3 py-2 text-base text-white focus:outline-none focus:ring-2 focus:ring-[#FF7302]/40"
-                            value={activeCat}
-                            onChange={(e) => setActiveCat(e.target.value)}
-                        >
-                            {categories.map(c => <option key={c}>{c}</option>)}
-                        </select>
-                    </div>
-                </div>
-
-                {/* List */}
-                <div className="mx-auto mt-8 grid gap-4 md:max-w-3xl">
-                    {filtered.length === 0 && (
-                        <div className="rounded-lg border border-white/5 bg-[#111116] p-5 text-base text-gray-400">
-                            No results. Try a different keyword or category.
-                        </div>
-                    )}
-
-                    {filtered.map((f, idx) => (
-                        <details
-                            key={`${f.q}-${idx}`}
-                            className="group rounded-lg border border-white/5 bg-[#111116] p-5 open:border-[#FF7302]/40"
-                            id={slugify(f.q)}
-                        >
-                            <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
-                                <div>
-                                    <h3 className="text-base font-semibold text-white">{f.q}</h3>
-                                    {f.cat && (
-                                        <span className="mt-1 inline-flex rounded-[5px] border border-white/10 bg-white/5 px-2 py-0.5 text-xs text-gray-300">
-                                            {f.cat}
-                                        </span>
-                                    )}
-                                </div>
-                                <span
-                                    className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-[5px] border border-white/10 text-gray-300 transition-colors group-open:bg-[#FF7302] group-open:text-black"
-                                    aria-hidden="true"
+                {/* Accordion */}
+                <div className="mx-auto mt-10 max-w-3xl grid gap-3">
+                    {faqs.map((f, idx) => {
+                        const isOpen = openIdx === idx;
+                        return (
+                            <motion.div
+                                key={f.q}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: '-80px' }}
+                                transition={{ duration: 0.4, delay: idx * 0.05 }}
+                            >
+                                <BorderGlow
+                                    edgeSensitivity={20}
+                                    glowColor="30 100 60"
+                                    backgroundColor={bgColor}
+                                    borderRadius={14}
+                                    glowRadius={24}
+                                    glowIntensity={isOpen ? 1.0 : 0.85}
+                                    coneSpread={28}
+                                    colors={GLOW_COLORS}
                                 >
-                                    +
-                                </span>
-                            </summary>
-                            <div className="mt-3 text-base text-gray-300">
-                                {f.a}
-                            </div>
-                            <div className="mt-3">
-                                <a
-                                    href={`#${slugify(f.q)}`}
-                                    className="text-sm text-gray-500 hover:text-gray-300"
-                                    aria-label="Copy link to this FAQ"
-                                >
-                                    Copy link
-                                </a>
-                            </div>
-                        </details>
-                    ))}
+                                    <div className="overflow-hidden rounded-[13px]">
+                                        <button
+                                            type="button"
+                                            onClick={() => setOpenIdx(isOpen ? null : idx)}
+                                            className="flex w-full items-center justify-between p-5 text-left"
+                                            aria-expanded={isOpen}
+                                        >
+                                            <h3 className="text-sm font-semibold text-gray-900 dark:text-white pr-4">{f.q}</h3>
+                                            <motion.span
+                                                animate={{ rotate: isOpen ? 45 : 0 }}
+                                                transition={{ duration: 0.2 }}
+                                                className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-base font-medium transition-colors ${
+                                                    isOpen
+                                                        ? 'border-[#FF9500] bg-[#FF9500] text-black'
+                                                        : 'border-gray-200 dark:border-[#1f1f1f] text-gray-500 dark:text-[#888888]'
+                                                }`}
+                                                aria-hidden="true"
+                                            >
+                                                +
+                                            </motion.span>
+                                        </button>
+
+                                        <AnimatePresence initial={false}>
+                                            {isOpen && (
+                                                <motion.div
+                                                    key="answer"
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: 'auto', opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                                                    className="overflow-hidden"
+                                                >
+                                                    <p className="px-5 pb-5 text-sm text-gray-600 dark:text-[#888888] leading-relaxed">
+                                                        {f.a}
+                                                    </p>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                </BorderGlow>
+                            </motion.div>
+                        );
+                    })}
                 </div>
 
                 {/* Help CTA */}
-                <div className="mx-auto mt-10 flex max-w-3xl items-center justify-between rounded-lg border border-white/5 bg-[#111116] p-5">
-                    <div>
-                        <h3 className="text-base font-semibold text-white">Still need help?</h3>
-                        <p className="mt-1 text-base text-gray-400">Share project details and get a quick, tailored answer.</p>
-                    </div>
-                    <a
-                        href="#contact"
-                        className="inline-flex items-center justify-center rounded-[5px] bg-[#FF7302] px-4 py-2 text-base font-semibold text-black hover:opacity-90"
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                    className="mx-auto mt-10 max-w-3xl"
+                >
+                    <BorderGlow
+                        edgeSensitivity={22}
+                        glowColor="30 100 60"
+                        backgroundColor={bgColor}
+                        borderRadius={16}
+                        glowRadius={28}
+                        glowIntensity={0.9}
+                        coneSpread={30}
+                        colors={GLOW_COLORS}
                     >
-                        Ask a question
-                    </a>
-                </div>
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5">
+                            <div>
+                                <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Still have questions?</h3>
+                                <p className="mt-1 text-sm text-gray-600 dark:text-[#888888]">Chat with Daksh directly on WhatsApp.</p>
+                            </div>
+                            <GlowButton
+                                asLink
+                                variant="primary"
+                                href="https://wa.me/917829475479"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Chat on WhatsApp
+                            </GlowButton>
+                        </div>
+                    </BorderGlow>
+                </motion.div>
             </div>
         </section>
     );
-}
-
-/* Helpers */
-function slugify(s) {
-    return s
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '');
 }

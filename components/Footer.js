@@ -1,90 +1,82 @@
-// components/Footer.js
+'use client';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTheme } from '@/components/ThemeProvider';
+
+const WHATSAPP = 'https://wa.me/917829475479';
+const INSTAGRAM = 'https://instagram.com/zocktech';
 
 export default function Footer() {
+    const { theme } = useTheme();
+
     return (
-        <footer className="mt-20 border-t border-white/5 bg-[#0B0B0F] text-white">
-            {/* Top */}
+        <footer className="mt-10 border-t border-gray-200 dark:border-[#1f1f1f] bg-gray-50 dark:bg-[#111111] text-gray-900 dark:text-white">
             <div className="mx-auto max-w-7xl px-4 py-12">
-                <div className="grid gap-10 md:grid-cols-4">
-                    {/* Brand + Blurb */}
+                <div className="grid gap-10 md:grid-cols-3">
+                    {/* Left: Brand */}
                     <div>
-                        <Link href="/" aria-label="Zocktech home" className="flex items-center gap-2">
+                        <Link href="/" aria-label="Zocktech home" className="inline-flex items-center gap-2">
                             <Image
-                                src="/logo-3.png"
+                                src={theme === 'dark' ? '/zocktechLogo/darkLogo.png' : '/zocktechLogo/lightLogo.png'}
                                 alt="Zocktech Logo"
-                                width={160}
-                                height={48}
+                                width={140}
+                                height={40}
                                 priority={false}
-                                className="h-12 w-auto"
+                                className="h-10 w-auto"
                             />
                         </Link>
-
-                        <p className="mt-4 text-base text-gray-400">
-                            Premium, high‑converting websites for small businesses. WordPress, Shopify, and MERN/Next.js builds—delivered fast.
+                        <p className="mt-4 text-sm text-gray-600 dark:text-[#888888] leading-relaxed max-w-xs">
+                            Websites that work. Results that show.
                         </p>
+                    </div>
 
-                        {/* Social */}
-                        <div className="mt-6 flex items-center gap-3">
-                            <SocialIcon href="#" label="Twitter/X">
-                                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
-                                    <path d="M18.244 2H21l-6.53 7.46L22.5 22h-6.79l-5.32-6.67L4.3 22H1.5l7.19-8.2L1.5 2h6.89l4.78 6.06L18.244 2Zm-1.19 18h1.85L7.01 4h-1.9l11.934 16Z" />
-                                </svg>
-                            </SocialIcon>
-                            <SocialIcon href="#" label="LinkedIn">
-                                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
-                                    <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5v16H0V8zm7.5 0H12v2.2h.06c.63-1.2 2.18-2.46 4.49-2.46 4.8 0 5.69 3.16 5.69 7.26V24h-5V16.4c0-1.81-.03-4.14-2.52-4.14-2.53 0-2.92 1.97-2.92 4v7.74H7.5V8z" />
-                                </svg>
-                            </SocialIcon>
-                            <SocialIcon href="#" label="GitHub">
-                                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
-                                    <path d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.08 3.29 9.38 7.86 10.9.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.35-1.3-1.71-1.3-1.71-1.06-.72.08-.71.08-.71 1.18.08 1.8 1.22 1.8 1.22 1.04 1.79 2.73 1.27 3.4.97.11-.76.41-1.27.75-1.56-2.55-.29-5.24-1.28-5.24-5.71 0-1.26.45-2.29 1.2-3.09-.12-.29-.52-1.47.11-3.07 0 0 .98-.31 3.2 1.18a11.1 11.1 0 0 1 5.82 0c2.22-1.49 3.2-1.18 3.2-1.18.63 1.6.23 2.78.12 3.07.75.8 1.2 1.83 1.2 3.09 0 4.44-2.7 5.42-5.26 5.7.42.36.8 1.07.8 2.17v3.21c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z" />
-                                </svg>
-                            </SocialIcon>
+                    {/* Center: Links */}
+                    <div className="flex justify-center">
+                        <div>
+                            <h3 className="text-xs font-semibold uppercase tracking-widest text-[#FF9500] mb-4">Navigation</h3>
+                            <nav className="flex flex-col gap-2.5">
+                                {[
+                                    ['Services', '/#services'],
+                                    ['Pricing', '/#pricing'],
+                                    ['Portfolio', '/#portfolio'],
+                                    ['FAQs', '/#faqs'],
+                                    ['Contact', '/#contact'],
+                                ].map(([label, href]) => (
+                                    <a key={label} href={href} className="text-sm text-gray-600 dark:text-[#888888] hover:text-black dark:hover:text-white transition-colors">
+                                        {label}
+                                    </a>
+                                ))}
+                            </nav>
                         </div>
                     </div>
 
-                    {/* Links */}
-                    <div>
-                        <h3 className="text-base font-semibold">Company</h3>
-                        <ul className="mt-4 space-y-2 text-base text-gray-400">
-                            <li><a className="hover:text-white" href="#about">About</a></li>
-                            <li><a className="hover:text-white" href="#services">Services</a></li>
-                            <li><a className="hover:text-white" href="#pricing">Pricing</a></li>
-                            <li><a className="hover:text-white" href="#portfolio">Portfolio</a></li>
-                            <li><Link className="hover:text-white" href="/case-studies">Case Studies</Link></li>
-                            <li><a className="hover:text-white" href="#faqs">FAQs</a></li>
-                        </ul>
-                    </div>
-
-                    {/* Services */}
-                    <div>
-                        <h3 className="text-base font-semibold">What We Do</h3>
-                        <ul className="mt-4 space-y-2 text-base text-gray-400">
-                            <li>WordPress Websites</li>
-                            <li>Shopify Stores</li>
-                            <li>MERN/Next.js Development</li>
-                            <li>Maintenance & Support</li>
-                            <li>SEO & Analytics Setup</li>
-                        </ul>
-                    </div>
-
-                    {/* Contact */}
-                    <div>
-                        <h3 className="text-base font-semibold">Contact</h3>
-                        <ul className="mt-4 space-y-2 text-base text-gray-400">
-                            <li><a className="hover:text-white" href="mailto:hello@zocktech.com">hello@zocktech.com</a></li>
-                            <li><a className="hover:text-white" href="tel:+917829475479">+91 7829475479</a></li>
-                            <li className="text-gray-500">Mon–Sat: 9:30am–6:30pm IST</li>
-                            <li className="text-gray-500">India • Remote</li>
-                        </ul>
-                        <div className="mt-4">
+                    {/* Right: Social */}
+                    <div className="md:text-right">
+                        <h3 className="text-xs font-semibold uppercase tracking-widest text-[#FF9500] mb-4">Connect</h3>
+                        <div className="flex gap-3 md:justify-end">
+                            {/* WhatsApp */}
                             <a
-                                href="#contact"
-                                className="inline-flex items-center rounded-md bg-[#FF7302] px-4 py-2 text-base font-semibold text-black hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7302]/60"
+                                href={WHATSAPP}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="WhatsApp"
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 dark:border-[#1f1f1f] text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366]/30 transition-colors"
                             >
-                                Get a Free Quote
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                </svg>
+                            </a>
+                            {/* Instagram */}
+                            <a
+                                href={INSTAGRAM}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Instagram"
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 dark:border-[#1f1f1f] text-gray-500 dark:text-white/60 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+                            >
+                                <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
                             </a>
                         </div>
                     </div>
@@ -92,46 +84,13 @@ export default function Footer() {
             </div>
 
             {/* Bottom bar */}
-            <div className="border-t border-white/5">
-                <div className="mx-auto max-w-7xl px-4 py-4 flex flex-col md:flex-row items-center justify-center gap-3">
-                    <p className="text-base text-gray-500">
-                      Made with ❤️ and ☕ by DakshTandel © {new Date().getFullYear()} Zocktech. All rights reserved.
+            <div className="border-t border-gray-200 dark:border-[#1f1f1f]">
+                <div className="mx-auto max-w-7xl px-4 py-4 flex items-center justify-center">
+                    <p className="text-xs text-gray-500 dark:text-[#888888] text-center">
+                        © 2026 Zocktech · Built with Next.js · Made by Daksh Tandel
                     </p>
-                    {/* <div className="flex items-center gap-4 text-base text-gray-400">
-                        <Link className="hover:text-white" href="/privacy">Privacy Policy</Link>
-                        <span className="text-gray-600">•</span>
-                        <Link className="hover:text-white" href="/terms">Terms of Service</Link>
-                    </div> */}
                 </div>
             </div>
         </footer>
-    );
-}
-
-function SocialIcon({ href, label, children }) {
-    const isInternal = href?.startsWith('/');
-    if (isInternal) {
-        // Internal route: use Link
-        return (
-            <Link
-                href={href}
-                aria-label={label}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/10 text-white/80 hover:text-white hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7302]/60"
-            >
-                {children}
-            </Link>
-        );
-    }
-    // External: use <a> with target and rel
-    return (
-        <a
-            href={href}
-            aria-label={label}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/10 text-white/80 hover:text-white hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7302]/60"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            {children}
-        </a>
     );
 }
