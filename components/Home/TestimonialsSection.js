@@ -2,14 +2,9 @@
 import { motion } from 'framer-motion';
 import { Marquee } from '@/components/Marquee';
 
-const reviews = [
-    { body: 'Daksh built our gym website in 4 days. Clean, fast, and exactly what we wanted.', name: 'KA17 Fitness Studio', username: '@ka17fitness', img: 'https://avatar.vercel.sh/ka17fitness' },
-    { body: 'The salon website looks premium. We started getting enquiries within the first week.', name: 'Wellness Client', username: '@wellness', img: 'https://avatar.vercel.sh/wellness' },
-    { body: 'SRK Holidays website was delivered on time. Clients love how it looks on mobile.', name: 'SRK Holidays', username: '@srkholidays', img: 'https://avatar.vercel.sh/srkholidays' },
-    { body: 'Very professional. WhatsApp communication made the whole process easy and quick.', name: 'Fitness World Gym', username: '@fitnessworld', img: 'https://avatar.vercel.sh/fitnessworld' },
-    { body: 'The foundation website looks clean and trustworthy. Exactly what we needed.', name: 'MATRI DIVYA', username: '@matridivya', img: 'https://avatar.vercel.sh/matridivya' },
-    { body: 'Pricing was clear from day one. No surprises. Site went live in 5 days.', name: 'D2C Brand', username: '@d2cbrand', img: 'https://avatar.vercel.sh/d2cbrand' },
-];
+import testimonialData from '@/data/testimonials.json';
+
+const reviews = testimonialData;
 
 const firstRow = [reviews[0], reviews[1], reviews[2]];
 const secondRow = [reviews[3], reviews[4], reviews[5]];

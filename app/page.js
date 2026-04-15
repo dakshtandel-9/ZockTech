@@ -6,10 +6,11 @@ import AboutPreview from '@/components/Home/AboutPreview';
 import PricingSection from '@/components/Home/PricingSection';
 import PortfolioPreview from '@/components/Home/PortfolioPreview';
 import ProcessSection from '@/components/Home/ProcessSection';
+import ClientReelsSection from '@/components/Home/ClientReelsSection';
 import TestimonialsSection from '@/components/Home/TestimonialsSection';
 import FAQSection from '@/components/Home/FAQSection';
 import ContactSection from '@/components/Home/ContactSection';
-import Chatbot from '@/components/Chatbot';
+
 
 export default function HomePage() {
   return (
@@ -21,12 +22,13 @@ export default function HomePage() {
         <AboutPreview />
         <PricingSection />
         <PortfolioPreview />
+        <ClientReelsSection />
         <ProcessSection />
         <TestimonialsSection />
         <FAQSection />
         <ContactSection />
       </main>
-      <Chatbot />
+
     </>
   );
 }

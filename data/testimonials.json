@@ -1,0 +1,38 @@
+[
+    {
+        "name": "KA17 Fitness Studio",
+        "username": "@ka17fitness",
+        "body": "Daksh built our gym website in 4 days. Clean, fast, and exactly what we wanted.",
+        "img": "https://avatar.vercel.sh/ka17fitness"
+    },
+    {
+        "name": "Wellness Client",
+        "username": "@wellness",
+        "body": "The salon website looks premium. We started getting enquiries within the first week.",
+        "img": "https://avatar.vercel.sh/wellness"
+    },
+    {
+        "name": "SRK Holidays",
+        "username": "@srkholidays",
+        "body": "SRK Holidays website was delivered on time. Clients love how it looks on mobile.",
+        "img": "https://avatar.vercel.sh/srkholidays"
+    },
+    {
+        "name": "Fitness World Gym",
+        "username": "@fitnessworld",
+        "body": "Very professional. WhatsApp communication made the whole process easy and quick.",
+        "img": "https://avatar.vercel.sh/fitnessworld"
+    },
+    {
+        "name": "MATRI DIVYA",
+        "username": "@matridivya",
+        "body": "The foundation website looks clean and trustworthy. Exactly what we needed.",
+        "img": "https://avatar.vercel.sh/matridivya"
+    },
+    {
+        "name": "D2C Brand",
+        "username": "@d2cbrand",
+        "body": "Pricing was clear from day one. No surprises. Site went live in 5 days.",
+        "img": "https://avatar.vercel.sh/d2cbrand"
+    }
+]
