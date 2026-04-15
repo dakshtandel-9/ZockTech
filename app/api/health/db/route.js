@@ -3,6 +3,9 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
 export async function GET() {
+    if (!supabase) {
+        return NextResponse.json({ ok: false, error: 'Supabase not configured' }, { status: 503 });
+    }
     try {
         const { data, error } = await supabase.from('leads').select('count', { count: 'exact', head: true });
         if (error) throw error;

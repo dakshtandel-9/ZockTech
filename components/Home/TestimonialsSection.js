@@ -31,7 +31,7 @@ const ReviewCard = ({ img, name, username, body }) => {
                 </div>
             </div>
             <blockquote className="mt-2 text-sm text-gray-800 dark:text-gray-300">
-                "{body}"
+                &ldquo;{body}&rdquo;
             </blockquote>
         </figure>
     );
@@ -67,7 +67,7 @@ export default function TestimonialsSection() {
                         transition={{ delay: 0.1, duration: 0.5 }}
                         className="mt-3 text-base text-gray-600 dark:text-[#888888]"
                     >
-                        Real feedback from businesses we've built for.
+                        Real feedback from businesses we&apos;ve built for.
                     </motion.p>
                 </div>
 
