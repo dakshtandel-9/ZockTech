@@ -9,7 +9,6 @@ import ProcessSection from '@/components/Home/ProcessSection';
 import ClientReelsSection from '@/components/Home/ClientReelsSection';
 import TestimonialsSection from '@/components/Home/TestimonialsSection';
 import FAQSection from '@/components/Home/FAQSection';
-import ContactSection from '@/components/Home/ContactSection';
 
 
 export default function HomePage() {
@@ -26,7 +25,6 @@ export default function HomePage() {
         <ProcessSection />
         <TestimonialsSection />
         <FAQSection />
-        <ContactSection />
       </main>
 
     </>

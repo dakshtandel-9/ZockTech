@@ -100,7 +100,6 @@ export default function ClientReelsSection() {
 
     if (reels.length === 0) return null;
 
-    // Center cards when there are fewer than 3
     const isFew = reels.length < 3;
 
     return (
@@ -115,7 +114,7 @@ export default function ClientReelsSection() {
                 }
                 .dark .cr-section { background: #0a0a0a; }
 
-                /* subtle grid texture */
+                /* subtle dot grid */
                 .cr-section::before {
                     content: '';
                     position: absolute;
