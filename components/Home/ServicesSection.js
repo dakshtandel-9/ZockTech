@@ -7,22 +7,22 @@ const menuItems = [
   {
     text: 'Landing Page',
     link: '/#contact',
-    image: '/portfolio/35frames.png',
+    image: 'https://res.cloudinary.com/dwethh3fq/image/upload/w_1200,f_auto,q_auto/v1776423480/Screenshot_2026-04-15_at_17.28.05_fo24eo.png',
   },
   {
     text: 'Business Website',
     link: '/#contact',
-    image: '/portfolio/sarala.png',
+    image: 'https://res.cloudinary.com/dwethh3fq/image/upload/w_1200,f_auto,q_auto:low/v1776424164/Screenshot_2026-04-15_at_17.28.19_yx04sp.png',
   },
   {
     text: 'E-commerce Store',
     link: '/#contact',
-    image: '/portfolio/identity.png',
+    image: 'https://res.cloudinary.com/dwethh3fq/image/upload/w_1200,f_auto,q_auto:low/v1776424164/Screenshot_2026-04-15_at_19.33.18_cjxka9.png',
   },
   {
     text: 'Custom Web App',
     link: '/#contact',
-    image: '/portfolio/insightoriatesting.png',
+    image: 'https://res.cloudinary.com/dwethh3fq/image/upload/w_1200,f_auto,q_auto:low/v1776424165/Screenshot_2026-04-15_at_17.28.32_cshwyt.png',
   },
 ];
 

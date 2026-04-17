@@ -101,10 +101,22 @@ export default function PortfolioPreview() {
 
                                     {/* Buttons */}
                                     <div className="px-6 pb-6 flex flex-wrap gap-3">
-                                        <GlowButton variant="primary" size="sm">
+                                        <GlowButton 
+                                            variant="primary" 
+                                            size="sm"
+                                            asLink={true}
+                                            href={p.caseStudy}
+                                        >
                                             Case study
                                         </GlowButton>
-                                        <GlowButton variant="secondary" size="sm">
+                                        <GlowButton 
+                                            variant="secondary" 
+                                            size="sm"
+                                            asLink={true}
+                                            href={p.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
                                             Visit website
                                         </GlowButton>
                                     </div>

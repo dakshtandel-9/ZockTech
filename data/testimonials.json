@@ -1,38 +1,52 @@
 [
     {
-        "name": "KA17 Fitness Studio",
-        "username": "@ka17fitness",
-        "body": "Daksh built our gym website in 4 days. Clean, fast, and exactly what we wanted.",
-        "img": "https://avatar.vercel.sh/ka17fitness"
+        "name": "Rahul Shetty",
+        "body": "ZocTech delivered my business website in just 3 days. Clean UI and super fast loading.",
+        "img": "https://images.unsplash.com/photo-1599566150163-29194dcaad36"
     },
     {
-        "name": "Wellness Client",
-        "username": "@wellness",
-        "body": "The salon website looks premium. We started getting enquiries within the first week.",
-        "img": "https://avatar.vercel.sh/wellness"
+        "name": "Priya Nair",
+        "body": "The design looks premium. I started getting leads within the first week itself.",
+        "img": "https://images.unsplash.com/photo-1544005313-94ddf0286df2"
     },
     {
-        "name": "SRK Holidays",
-        "username": "@srkholidays",
-        "body": "SRK Holidays website was delivered on time. Clients love how it looks on mobile.",
-        "img": "https://avatar.vercel.sh/srkholidays"
+        "name": "Amit Verma",
+        "body": "Very smooth process. Daksh handled everything from domain to deployment.",
+        "img": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
     },
     {
-        "name": "Fitness World Gym",
-        "username": "@fitnessworld",
-        "body": "Very professional. WhatsApp communication made the whole process easy and quick.",
-        "img": "https://avatar.vercel.sh/fitnessworld"
+        "name": "Sneha Kulkarni",
+        "body": "Loved the mobile responsiveness. My clients mostly use phones and it works perfectly.",
+        "img": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
     },
     {
-        "name": "MATRI DIVYA",
-        "username": "@matridivya",
-        "body": "The foundation website looks clean and trustworthy. Exactly what we needed.",
-        "img": "https://avatar.vercel.sh/matridivya"
+        "name": "Rohit Patil",
+        "body": "Affordable pricing and quick delivery. No unnecessary delays or confusion.",
+        "img": "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126"
     },
     {
-        "name": "D2C Brand",
-        "username": "@d2cbrand",
-        "body": "Pricing was clear from day one. No surprises. Site went live in 5 days.",
-        "img": "https://avatar.vercel.sh/d2cbrand"
+        "name": "Anjali Sharma",
+        "body": "The website design looks clean and modern. Exactly what I had in mind.",
+        "img": "https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+    },
+    {
+        "name": "Kiran Naik",
+        "body": "Communication was very clear on WhatsApp. Got regular updates during development.",
+        "img": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde"
+    },
+    {
+        "name": "Meera Joshi",
+        "body": "Super fast service. Website went live in 4 days and everything worked perfectly.",
+        "img": "https://images.unsplash.com/photo-1554151228-14d9def656e4"
+    },
+    {
+        "name": "Vikram Desai",
+        "body": "ZocTech understands business needs, not just design. That made a big difference.",
+        "img": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5"
+    },
+    {
+        "name": "Pooja Reddy",
+        "body": "Very professional work. The website feels premium even at a low budget.",
+        "img": "https://images.unsplash.com/photo-1517841905240-472988babdf9"
     }
 ]

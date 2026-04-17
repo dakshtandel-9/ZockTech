@@ -1,38 +1,50 @@
 [
     {
-        "title": "SRK dkashjdsak",
-        "tag": "Travel & Tourism",
-        "description": "Full business website for a travel agency. Enquiry form, tour packages.",
-        "image": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop"
+        "title": "AkswayFilms",
+        "tag": "Photography Studio",
+        "description": "Full business website for a photography studio. Enquiry form, tour packages.",
+        "image": "https://res.cloudinary.com/dwethh3fq/image/upload/w_1200,f_auto,q_auto/v1776423480/Screenshot_2026-04-15_at_17.28.05_fo24eo.png",
+        "link": "https://akswayfilms.in/",
+        "caseStudy": "#"
     },
     {
-        "title": "KA17 Fitness Studio",
-        "tag": "Gym & Fitness",
-        "description": "Landing page with class schedule, trainer bios, and WhatsApp booking.",
-        "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop"
+        "title": "Zelvaa",
+        "tag": "Analytics",
+        "description": "Data analytics company providing AI, machine learning, and data-driven business solutions.",
+        "image": "https://res.cloudinary.com/dwethh3fq/image/upload/w_1200,f_auto,q_auto:low/v1776424164/Screenshot_2026-04-15_at_17.28.19_yx04sp.png",
+        "link": "https://www.zelvaa.com/",
+        "caseStudy": "#"
     },
     {
-        "title": "Fitness World Gym",
-        "tag": "Gym Landing Page",
-        "description": "High-converting landing page built for Google and Instagram ads.",
-        "image": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=2070&auto=format&fit=crop"
+        "title": "Sanjari Herbal Hair Oil",
+        "tag": "Herbal Hair Oil",
+        "description": "Herbal hair oil brand offering natural solutions for hair growth, dandruff, and scalp care.",
+        "image": "https://res.cloudinary.com/dwethh3fq/image/upload/w_1200,f_auto,q_auto:low/v1776424164/Screenshot_2026-04-15_at_19.33.18_cjxka9.png",
+        "link": "https://www.sanjariherbalhairoil.com/",
+        "caseStudy": "#"
     },
     {
-        "title": "Salon Project",
-        "tag": "Beauty & Wellness",
-        "description": "Premium salon website with services menu, gallery, and booking CTA.",
-        "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1974&auto=format&fit=crop"
+        "title": "Sparkle Global Trade",
+        "tag": "Trading Company",
+        "description": "Trading company supplying industrial, consumer, and commercial products across multiple industries.",
+        "image": "https://res.cloudinary.com/dwethh3fq/image/upload/w_1200,f_auto,q_auto:low/v1776424165/Screenshot_2026-04-15_at_17.28.32_cshwyt.png",
+        "link": "https://www.sparkleglobaltrade.com/",
+        "caseStudy": "#"
     },
     {
-        "title": "MATRI DIVYA",
-        "tag": "NGO / Non-profit",
-        "description": "Clean, trustworthy website for a charitable foundation.",
-        "image": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop"
+        "title": "First Frame Media",
+        "tag": "Media & Entertainment",
+        "description": "Helping professionals build authentic LinkedIn presence that feels earned, not engineered.",
+        "image": "https://res.cloudinary.com/dwethh3fq/image/upload/w_1200,f_auto,q_auto:low/v1776424163/Screenshot_2026-04-15_at_19.32.15_nieo6q.png",
+        "link": "https://www.firstframemedia.com/",
+        "caseStudy": "#"
     },
     {
-        "title": "D2C Brand Clothing",
-        "tag": "E-commerce",
-        "description": "Modern online store with seamless checkout and inventory syncing.",
-        "image": "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070&auto=format&fit=crop"
+        "title": "Identity Dental",
+        "tag": "Dental Clinic",
+        "description": "Identity Dental is a dental clinic located in Kadapa, Andhra Pradesh.",
+        "image": "https://res.cloudinary.com/dwethh3fq/image/upload/w_1200,f_auto,q_auto:low/v1776433662/Screenshot_2026-04-17_at_19.17.30_gqfqlb.png",
+        "link": "https://www.identitydental.in/",
+        "caseStudy": "#"
     }
 ]
